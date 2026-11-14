@@ -1,12 +1,1264 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://sosasoftcuba.github.io/base_consultora_uo/">
-    <title>Redirigiendo...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultora de Tesis | Universidad de Oriente</title>
+    
+    <!-- FAVICON -->
+    <link rel="icon" type="image/png" href="imagen/favicon.png">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sosasoftcuba.github.io/base_consultora_uo/">
+    <meta property="og:title" content="Consultora de Tesis | Universidad de Oriente">
+    <meta property="og:description" content="Explora el repositorio académico. Busca por título, autor, año o contenido dentro de las tesis.">
+    <meta property="og:image" content="https://sosasoftcuba.github.io/base_consultora_uo/imagen/logo.png">
+
+    <!-- META DESCRIPTION PARA SEO Y AGENTES DE IA -->
+    <meta name="description" content="Consultora de Tesis de la Universidad de Oriente (UO), Cuba. Repositorio académico centralizado de tesis de Maestría, Doctorado, Material Docente y Material de Consulta Obligatoria, con buscador local y privado que funciona también offline.">
+    <meta name="keywords" content="tesis, Universidad de Oriente, Cuba, repositorio académico, maestría, doctorado, material docente, material de consulta obligatoria, buscador de tesis, consultora de tesis, SOSASoftCuba">
+    <meta name="author" content="SosaSoft Cuba - Universidad de Oriente">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#1d4ed8">
+
+    <!-- LLMS.TXT: PUNTO DE ENTRADA PARA AGENTES DE IA -->
+    <!-- El estándar llms.txt ofrece a los modelos de lenguaje un resumen estructurado y legible por máquina del proyecto.
+         Este enlace lo hace descubrible desde el propio HTML, sin necesidad de adivinar la ruta /llms.txt. -->
+    <link rel="llms-txt" type="text/markdown" href="https://sosasoftcuba.github.io/base_consultora_uo/llms.txt">
+    <link rel="alternate" type="text/markdown" hreflang="es" href="https://sosasoftcuba.github.io/base_consultora_uo/llms.txt">
+    <meta name="llms-txt" content="https://sosasoftcuba.github.io/base_consultora_uo/llms.txt">
+
+    <!-- DATOS ESTRUCTURADOS JSON-LD PARA BUSCADORES Y AGENTES -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Consultora de Tesis - Universidad de Oriente",
+      "alternateName": "Consultora de Tesis Local UO",
+      "url": "https://sosasoftcuba.github.io/base_consultora_uo/",
+      "description": "Repositorio académico centralizado de tesis de Maestría, Doctorado y materiales docentes de la Universidad de Oriente, Cuba, con buscador local y privado que funciona también offline.",
+      "inLanguage": "es",
+      "publisher": {
+        "@type": "Organization",
+        "name": "SosaSoft Cuba - Universidad de Oriente",
+        "email": "sosasoftcuba@gmail.com",
+        "url": "https://sosasoftcuba.github.io/base_consultora_uo/"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://sosasoftcuba.github.io/base_consultora_uo/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Dataset",
+      "name": "Base de datos de tesis - Universidad de Oriente",
+      "description": "Colección centralizada de tesis de Maestría, Doctorado, Material Docente y Material de Consulta Obligatoria provenientes de las facultades y centros de investigación de la Universidad de Oriente, Cuba.",
+      "url": "https://sosasoftcuba.github.io/base_consultora_uo/",
+      "creator": {
+        "@type": "Organization",
+        "name": "Universidad de Oriente, Cuba"
+      },
+      "license": "https://sosasoftcuba.github.io/base_consultora_uo/llms.txt",
+      "isAccessibleForFree": true,
+      "keywords": ["tesis", "maestría", "doctorado", "material docente", "Universidad de Oriente", "Cuba", "repositorio académico"],
+      "inLanguage": "es"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-page: #f8fafc; --surface: #ffffff; --primary: #1d4ed8; --primary-light: #eff6ff;
+            --primary-hover: #1e40af; --text-main: #1e293b; --text-muted: #64748b; --border: #e2e8f0;
+            --alert-bg: #fef2f2; --alert-border: #f87171; --alert-text: #991b1b;
+            --warn-bg: #fffbeb; --warn-border: #fcd34d; --warn-text: #92400e;
+            --ok-bg: #ecfdf5; --ok-border: #10b981; --ok-text: #065f46;
+            --highlight: #fef08a; --radius: 12px; --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05); --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--text-main); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+        /* --- ANIMACIÓN BOTÓN PARPADEANTE --- */
+        @keyframes blinker { 50% { opacity: 0.3; } }
+        .blink { animation: blinker 1s linear infinite; background-color: #f59e0b !important; color: white !important; border-color: #f59e0b !important; }
+
+        /* --- TOAST NOTIFICATION --- */
+        .toast-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10005; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            pointer-events: none; gap: 10px;
+        }
+        .toast {
+            pointer-events: auto; background: var(--surface); border-left: 5px solid var(--ok-border);
+            border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.2); padding: 20px 25px;
+            display: flex; align-items: flex-start; gap: 15px; min-width: 320px; max-width: 450px;
+            transform: scale(0.8) translateY(20px); opacity: 0; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .toast.show { transform: scale(1) translateY(0); opacity: 1; }
+        .toast.error { border-left-color: var(--alert-border); }
+        .toast.info { border-left-color: var(--primary); }
+        
+        .toast-icon { font-size: 1.8rem; line-height: 1; }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 700; font-size: 1.1rem; color: var(--text-main); margin-bottom: 4px; }
+        .toast-message { font-size: 0.95rem; color: var(--text-muted); line-height: 1.4; }
+        .toast-version { font-size: 0.8rem; color: #94a3b8; margin-top: 8px; font-family: monospace; }
+        .toast-close { background: none; border: none; font-size: 1.4rem; color: #cbd5e1; cursor: pointer; padding: 0; line-height: 1; transition: color 0.2s; }
+        .toast-close:hover { color: var(--text-main); }
+
+        /* --- LOADER UI --- */
+        #loader-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(248, 250, 252, 0.95); z-index: 9999;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .spinner { width: 50px; height: 50px; border: 5px solid var(--border); border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        .loader-title { color: var(--text-main); margin-bottom: 10px; font-size: 1.5rem; font-weight: 700; }
+        .loader-text { color: var(--text-muted); font-size: 1rem; max-width: 400px; }
+        .progress-container { width: 100%; max-width: 300px; height: 8px; background: var(--border); border-radius: 4px; margin-top: 20px; overflow: hidden; }
+        #progress-bar { height: 100%; width: 0%; background: var(--primary); transition: width 0.2s ease; }
+
+        /* --- MODAL ACTUALIZACIÓN --- */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); z-index: 10000; justify-content: center; align-items: center; padding: 20px;
+        }
+        .modal-content {
+            background: var(--surface); padding: 25px; border-radius: var(--radius); max-width: 500px;
+            width: 100%; text-align: center; box-shadow: var(--shadow-lg); border: 2px solid #000;
+        }
+        .modal-title { color: var(--primary); margin-bottom: 15px; font-size: 1.4rem; font-weight: 700; }
+        .modal-text { margin-bottom: 20px; text-align: left; line-height: 1.5; color: var(--text-main); font-size: 1rem; }
+        .modal-buttons { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+        .modal-buttons .btn-search, .modal-buttons .btn-page { width: 100%; margin-bottom: 10px; }
+        
+        /* Vistas de resultado */
+        .msg-box { display: none; text-align: center; }
+        .msg-icon { font-size: 3rem; margin-bottom: 10px; line-height: 1; }
+        .msg-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 10px; }
+        .msg-text { font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; }
+        
+        #msg-downloaded { color: var(--ok-text); }
+        #msg-downloaded .msg-title { color: var(--ok-text); }
+        #msg-downloaded .msg-text { color: #065f46; }
+
+        #msg-skipped { color: var(--warn-text); }
+        #msg-skipped .msg-title { color: var(--warn-text); }
+        #msg-skipped .msg-text { color: #92400e; }
+
+        /* --- HEADER --- */
+        header { background-color: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 10; box-shadow: var(--shadow-sm); }
+        .header-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
+        .brand-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .logo-img { height: 55px; width: auto; object-fit: contain; color: transparent; }
+        .separator { font-size: 2rem; font-weight: 300; color: var(--border); line-height: 1; }
+        .logo-text { display: flex; flex-direction: column; line-height: 1.3; }
+        .logo-title { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
+        .logo-subtitle { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
+        .env-badge { background-color: var(--primary-light); color: var(--primary); padding: 0.6rem 1.2rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; border: 1px solid #bfdbfe; display: flex; align-items: center; gap: 0.5rem; white-space: nowrap; }
+
+        /* --- MAIN --- */
+        main { flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 3rem 1.5rem; }
+        .panel { display: none; border-radius: var(--radius); padding: 1.5rem; margin-bottom: 2rem; font-size: 1rem; box-shadow: var(--shadow-sm); animation: slideDown 0.4s ease-out; }
+        .panel h3 { margin-bottom: 0.75rem; font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem; }
+        .panel p { margin-bottom: 0.75rem; }
+        .panel ul { margin-left: 1.5rem; margin-bottom: 0.75rem; }
+        .panel li { margin-bottom: 0.5rem; }
+        .panel code { background-color: rgba(0,0,0,0.06); padding: 0.2rem 0.5rem; border-radius: 6px; font-family: monospace; font-weight: 600; }
+        #error-panel { background-color: var(--alert-bg); border: 1px solid var(--alert-border); border-left: 5px solid var(--alert-border); color: var(--alert-text); }
+        #warn-panel { background-color: var(--warn-bg); border: 1px solid var(--warn-border); border-left: 5px solid #f59e0b; color: var(--warn-text); }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .hero { text-align: center; margin-bottom: 2.5rem; }
+        .hero h3 { font-size: clamp(1.8rem, 4vw, 2.5rem); font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; }
+        .hero p { font-size: clamp(1rem, 2vw, 1.1rem); color: var(--text-muted); max-width: 800px; margin: 0 auto 0.5rem auto; }
+
+        .search-container { position: relative; max-width: 700px; margin: 0 auto 3rem auto; }
+        .search-box { display: flex; background-color: var(--surface); border: 1px solid var(--border); border-radius: 50px; padding: 0.5rem; box-shadow: var(--shadow-md); transition: all 0.2s ease; }
+        .search-box:focus-within { border-color: var(--primary); box-shadow: 0 0 0 4px var(--primary-light), var(--shadow-lg); }
+        .search-icon { display: flex; align-items: center; padding-left: 1rem; color: var(--text-muted); }
+        .search-input { flex: 1; border: none; background: transparent; padding: 0.75rem 1rem; font-size: 1.1rem; color: var(--text-main); outline: none; font-family: inherit; width: 100%; }
+        .clear-btn { background: none; border: none; cursor: pointer; color: var(--text-muted); padding: 0 0.5rem; display: none; align-items: center; }
+        .btn-search { background-color: var(--primary); color: white; border: none; border-radius: 40px; padding: 0.8rem 1.5rem; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s; text-decoration: none; text-align: center; display: inline-block;}
+        .btn-search:hover { background-color: var(--primary-hover); }
+
+        .results-info { font-size: 0.95rem; color: var(--text-main); margin-bottom: 1rem; font-weight: 500; }
+        .results-list { display: flex; flex-direction: column; gap: 1rem; }
+        
+        /* TARJETAS SIMPLES CON BORDES NEGROS FUERTES */
+        .card { background-color: var(--surface); border: 2px solid #000; border-radius: 4px; padding: 1.5rem; }
+        .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.3; }
+        .card-title a { color: var(--primary); text-decoration: underline; }
+        .source-tag { font-size: 0.8rem; font-weight: bold; color: #000; display: inline-block; margin-bottom: 0.5rem; border-bottom: 1px solid #000; padding-bottom: 2px;}
+        
+        .card-text { font-size: 0.95rem; color: #000; margin-bottom: 1.25rem; display: -webkit-box; -webkit-line-clamp: 12; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-text mark { background-color: var(--highlight); color: #000; font-weight: bold; }
+        
+        .card-footer { display: flex; align-items: center; justify-content: space-between; border-top: 1px dashed #000; padding-top: 1rem; flex-wrap: wrap; gap: 1rem; }
+        .info-tag { font-size: 0.8rem; color: #555; }
+        .btn-open { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; font-weight: bold; color: var(--primary); text-decoration: underline; }
+
+        .pagination { display: flex; justify-content: center; align-items: center; gap: 1.5rem; margin-top: 2.5rem; margin-bottom: 1rem; display: none; }
+        .btn-page { background-color: var(--surface); color: var(--primary); border: 2px solid var(--primary); padding: 0.6rem 1.2rem; border-radius: 4px; font-size: 0.95rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; text-align: center;}
+        .btn-page:hover:not(:disabled) { background-color: var(--primary); color: white; }
+        .btn-page:disabled { border-color: #ccc; color: #999; cursor: not-allowed; }
+        .page-info { font-size: 1rem; font-weight: 700; color: var(--text-main); }
+
+        footer { background-color: var(--surface); border-top: 1px solid var(--border); padding: 2rem 0; margin-top: auto; }
+        .footer-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem; }
+        .footer-left { display: flex; align-items: center; gap: 1rem; }
+        .footer-left img { height: 35px; width: auto; }
+        .footer-brand { display: flex; flex-direction: column; line-height: 1.2; }
+        .footer-brand-title { font-size: 0.95rem; font-weight: 700; color: var(--primary); }
+        .footer-brand-sub { font-size: 0.8rem; color: var(--text-muted); }
+        .footer-right { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; text-align: right; }
+        .footer-email { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+        .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+        
+        .footer-legal { width: 100%; text-align: justify; font-size: 0.85rem; color: var(--text-main); background-color: #fafafa; margin-top: 1rem; padding: 1rem; border-radius: 8px; border: 1px solid var(--border); line-height: 1.5; }
+        .footer-legal strong { color: #dc2626; display: block; margin-bottom: 4px; font-size: 0.95rem; } 
+
+        .stats-container { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); width: 100%; }
+        .stat-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; }
+        .stat-item strong { color: var(--primary); font-size: 1rem; }
+
+        @media (min-width: 769px) {
+            .card-text { -webkit-line-clamp: 25; }
+        }
+
+        @media (max-width: 768px) {
+            .header-content { flex-direction: column; text-align: center; gap: 1rem; }
+            .brand-group { flex-direction: column; gap: 0.5rem; justify-content: center; }
+            .separator { display: none; }
+            .logo-img { height: 100px; max-width: 90%; }
+            .env-badge { white-space: normal; justify-content: center; width: 100%; max-width: 320px; }
+            main { padding: 2rem 1rem; }
+            .search-box { flex-direction: column; border-radius: 16px; padding: 0.75rem; }
+            .search-icon { display: none; }
+            .search-input { padding: 0.75rem 2.5rem 0.75rem 0.5rem; font-size: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 1rem; }
+            .clear-btn { position: absolute; right: 1rem; top: 1rem; display: flex; }
+            .btn-search { border-radius: 12px; padding: 0.85rem; width: 100%; }
+            .card { padding: 1.25rem; }
+            .card-footer { flex-direction: column; align-items: stretch; }
+            .btn-open { justify-content: center; }
+            .footer-content { flex-direction: column; justify-content: center; gap: 1.5rem; }
+            .footer-left { flex-direction: column; text-align: center; gap: 0.5rem; }
+            .footer-right { align-items: center; text-align: center; }
+            .footer-legal { text-align: center; } 
+            .pagination { gap: 1rem; }
+            .toast { min-width: 90%; max-width: 90%; margin: 0 5%; }
+        }
+    </style>
 </head>
-<body style="font-family: sans-serif; text-align: center; padding: 50px;">
-    <p>Redirigiendo a la pagina del proyecto</p>
-    <p>Si no eres redirigido automáticamente, <a href="https://sosasoftcuba.github.io/base_consultora_uo/">haz clic aquí</a>.</p>
+<body>
+
+    <!-- FALLBACK PARA NAVEGADORES Y AGENTES SIN JAVASCRIPT -->
+    <!-- Sin JS no se puede cargar la base de datos localmente; este bloque ofrece una descripción
+         real del sitio y enlaces alternativos, en lugar de un mensaje de fallo engañoso en el HTML crudo. -->
+    <noscript>
+        <style>
+            /* Sin JavaScript, el overlay del loader quedaría fijado sobre la pantalla ocultando todo. */
+            #loader-overlay { display: none !important; }
+            #hero-section, #search-section, #pagination { display: none !important; }
+            .noscript-fallback { max-width: 820px; margin: 2rem auto; padding: 2rem 1.5rem;
+                font-family: 'Inter', system-ui, sans-serif; line-height: 1.65; color: #1e293b; }
+            .noscript-fallback h1 { color: #1d4ed8; font-size: 1.6rem; margin-bottom: 0.5rem; }
+            .noscript-fallback h2 { margin-top: 1.5rem; font-size: 1.1rem; color: #1e293b; }
+            .noscript-fallback ul { margin: 0.5rem 0 0 1.5rem; }
+            .noscript-fallback li { margin-bottom: 0.4rem; }
+            .noscript-fallback a { color: #1d4ed8; }
+            .noscript-fallback .ns-note { margin-top: 1.5rem; padding: 1rem; background: #eff6ff;
+                border: 1px solid #bfdbfe; border-radius: 8px; font-size: 0.9rem; color: #1e3a8a; }
+        </style>
+        <div class="noscript-fallback">
+            <h1>Consultora de Tesis - Universidad de Oriente (UO)</h1>
+            <p><strong>Repositorio académico centralizado</strong> de tesis de Maestría, Doctorado, Material Docente y Material de Consulta Obligatoria, provenientes de las facultades y centros de investigación de la Universidad de Oriente, Cuba.</p>
+            <p>El buscador interactivo carga la base de datos localmente mediante JavaScript y requiere que esté activado para funcionar. Habilítalo para buscar por título, autor, año o contenido dentro de las tesis.</p>
+            <h2>Recursos alternativos</h2>
+            <ul>
+                <li><a href="llms.txt">Resumen del proyecto para agentes de IA (llms.txt)</a></li>
+                <li><a href="https://github.com/sosasoftcuba/base_consultora_uo" target="_blank" rel="noopener">Repositorio completo en GitHub</a></li>
+                <li><a href="https://github.com/sosasoftcuba/base_consultora_uo/archive/refs/heads/main.zip" target="_blank" rel="noopener">Descargar versión portable (ZIP)</a> — funciona 100% offline</li>
+                <li><a href="ayuda.html">Página de ayuda</a></li>
+            </ul>
+            <p class="ns-note">Contacto: <a href="mailto:sosasoftcuba@gmail.com">sosasoftcuba@gmail.com</a>. La Universidad de Oriente y los autores originales se reservan los derechos sobre estos materiales, disponibles exclusivamente para fines de investigación académica.</p>
+        </div>
+    </noscript>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- MODAL DE ACTUALIZACIÓN CON VISTAS SEPARADAS -->
+    <div id="modal-update" class="modal-overlay">
+        <div class="modal-content">
+            
+            <!-- VISTA INICIAL -->
+            <div id="modal-initial-view">
+                <h3 class="modal-title">🚀 Nueva versión detectada</h3>
+                <div class="modal-text">
+                    Usted posee la versión <strong id="txt-local-ver"></strong>.<br>
+                    La nueva versión es <strong id="txt-remote-ver"></strong>.<br><br>
+                    ¿Desea descargar el archivo ZIP con las nuevas versiones de tesis del repositorio?
+                </div>
+                <div class="modal-buttons">
+                    <a id="btn-download-zip" href="https://github.com/sosasoftcuba/base_consultora_uo/archive/refs/heads/main.zip" class="btn-search" target="_blank">Sí, descargar ZIP</a>
+                    <button id="btn-skip-zip" class="btn-page">No, gracias</button>
+                </div>
+            </div>
+
+            <!-- VISTA RESULTADO: DESCARGA INICIADA -->
+            <div id="msg-downloaded" class="msg-box">
+                <div class="msg-icon">📥</div>
+                <div class="msg-title">Descargando actualización...</div>
+                <div class="msg-text">
+                    Se está descargando la nueva versión <strong id="txt-download-ver"></strong>, espere por favor...
+                    <br><br>
+                    Al terminar la descarga, le recomendamos <strong>eliminar la vieja carpeta</strong> y <strong>extraer esta nueva en C:</strong> para un mejor alcance.
+                </div>
+                <button class="btn-page" onclick="document.getElementById('modal-update').style.display='none'">Entendido</button>
+            </div>
+
+            <!-- VISTA RESULTADO: OMITIDA -->
+            <div id="msg-skipped" class="msg-box">
+                <div class="msg-icon">ℹ️</div>
+                <div class="msg-title">Actualización omitida</div>
+                <div class="msg-text">
+                    Puede que lo que busque esté en las nuevas tesis, o algunas tesis pueden haber sido derogadas/eliminadas.
+                </div>
+                <button class="btn-page" onclick="document.getElementById('modal-update').style.display='none'">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="loader-overlay">
+        <div class="spinner"></div>
+        <div class="loader-title">Cargando base de datos</div>
+        <div class="loader-text" id="loader-status">Iniciando...</div>
+        <div class="progress-container">
+            <div id="progress-bar"></div>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="brand-group">
+                <img src="imagen/logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+                <span class="separator">|</span>
+                <div class="logo-text">
+                    <span class="logo-title">Consultora de Tesis Local</span>
+                    <span class="logo-subtitle">Facultad Ciencias de la Educación</span>
+                </div>
+                <span class="separator">|</span>
+                
+                <!-- BOTONES DE ACCIÓN -->
+                <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                    <a href="ayuda.html" class="btn-page" style="text-decoration: none;">Ayuda</a>
+                    <!-- Botón dinámico de versión -->
+                    <a href="#" class="btn-page" id="btn-estado-version" style="text-decoration: none; display: none;">Comprobando...</a>
+                </div>
+            </div>
+            <div class="env-badge" id="env-info">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Cargando info...
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div id="error-panel" class="panel" role="alert" aria-live="assertive">
+            <!-- El contenido del panel de error se inyecta dinámicamente desde JS (mostrarError).
+                 No se deja texto estático de "error" en el HTML crudo para no confundir a los
+                 agentes de IA y buscadores que raspan el documento sin ejecutar JavaScript. -->
+            <div id="error-content"></div>
+        </div>
+        <div id="warn-panel" class="panel">
+            <h3>⚠️ Aviso de compatibilidad en tu navegador</h3>
+            <div id="warn-instructions"></div>
+        </div>
+
+        <section class="hero" id="hero-section">
+            <h3>Bienvenido Investigador</h3>
+            <p>Puede buscar por título, autor, año o contenido.</p>
+        </section>
+
+        <div class="search-container" id="search-section">
+            <div class="search-box">
+                <span class="search-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </span>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar tesis..." autocomplete="off">
+                <button id="clearBtn" class="clear-btn" title="Limpiar búsqueda">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                </button>
+                <button id="searchBtn" class="btn-search">Buscar</button>
+            </div>
+        </div>
+
+        <div id="resultsInfo" class="results-info"></div>
+        <div id="resultsList" class="results-list"></div>
+
+        <div id="pagination" class="pagination">
+            <button id="prevBtn" class="btn-page">Anterior</button>
+            <span id="pageInfo" class="page-info">Pág. 1 de 1</span>
+            <button id="nextBtn" class="btn-page">Siguiente</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-left">
+                <img src="imagen/logo.png" alt="Logo" onerror="this.style.display='none'">
+                <div class="footer-brand">
+                    <span class="footer-brand-title">Consultora de Tesis</span>
+                    <span class="footer-brand-sub">Facultad Ciencias de la Educación</span>
+                </div>
+            </div>
+            <div class="footer-right">
+                <a href="mailto:sosasoftcuba@gmail.com" class="footer-email">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    sosasoftcuba@gmail.com
+                </a>
+                <div class="footer-copy">
+                    &copy; <span class="current-year"></span> Todos los derechos reservados.
+                </div>
+				<div class="footer-copy">
+                    | mirror:<a href="https://cubaplaza.net" target="_blank" style="color: var(--text-muted); text-decoration: underline;"> https://cubaplaza.net</a> · <a href="llms.txt" style="color: var(--text-muted); text-decoration: underline;">llms.txt</a>
+                </div>
+            </div>
+            
+            <!-- CONTADORES -->
+            <div class="stats-container">
+                <div class="stat-item">
+                    Resumen Mensual:
+                </div>
+                <div class="stat-item">
+                    | 👁️ Visitas: <strong id="visit-count">...</strong>
+                </div>
+                <div class="stat-item">
+                    | 📄 Tesis Descargadas: <strong id="thesis-count">...</strong>
+                </div>
+            </div>
+
+            <!-- FECHA DE ACTUALIZACIÓN -->
+            <div style="width: 100%; text-align: center; font-size: 0.8rem; color: var(--text-muted); margin-top: 10px;">
+                <span id="last-update">Verificando fecha de actualización...</span>
+            </div>
+
+            <!-- ADVERTENCIA -->
+            <div class="footer-legal">
+                <strong>Advertencia:</strong>
+                El contenido de estos materiales puede ser usado, publicado o modificado siempre y cuando se referencien a sus autores originales. La Universidad de Oriente mantiene todos los derechos de copyright referentes a estos materiales u otros documentos de su pertenencia.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- LÓGICA DE CONTADORES (ABACUS) ---
+        if (navigator.onLine) {
+            fetch('https://abacus.jasoncameron.dev/hit/sosasoftcuba_uo/visitas_web')
+                .then(res => res.json())
+                .then(data => { document.getElementById('visit-count').innerText = data.value; })
+                .catch(e => { document.getElementById('visit-count').innerText = 'N/D'; });
+
+            fetch('https://abacus.jasoncameron.dev/get/sosasoftcuba_uo/tesis_abiertas')
+                .then(res => res.json())
+                .then(data => { document.getElementById('thesis-count').innerText = data.value || 0; })
+                .catch(e => { document.getElementById('thesis-count').innerText = 'N/D'; });
+        } else {
+            document.getElementById('visit-count').innerText = 'Offline';
+            document.getElementById('thesis-count').innerText = 'Offline';
+        }
+
+        function registrarConsulta() {
+            if (!navigator.onLine) return;
+            fetch('https://abacus.jasoncameron.dev/hit/sosasoftcuba_uo/tesis_abiertas')
+                .then(res => res.json())
+                .then(data => { document.getElementById('thesis-count').innerText = data.value; })
+                .catch(e => {});
+        }
+
+        // --- SISTEMA DE NOTIFICACIONES TOAST ---
+        function mostrarToast(titulo, mensaje, tipo = 'success', version = null) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = `toast ${tipo === 'error' ? 'error' : tipo === 'info' ? 'info' : ''}`;
+            
+            let icon = '✅';
+            if (tipo === 'error') icon = '⚠️';
+            if (tipo === 'info') icon = 'ℹ️';
+
+            toast.innerHTML = `
+                <div class="toast-icon">${icon}</div>
+                <div class="toast-content">
+                    <div class="toast-title">${titulo}</div>
+                    <div class="toast-message">${mensaje}</div>
+                    ${version ? `<div class="toast-version">Versión local: ${version}</div>` : ''}
+                </div>
+                <button class="toast-close" onclick="this.parentElement.classList.remove('show'); setTimeout(() => this.parentElement.remove(), 300);">×</button>
+            `;
+            
+            container.appendChild(toast);
+            setTimeout(() => { toast.classList.add('show'); }, 10);
+            setTimeout(() => {
+                if (toast.parentElement) {
+                    toast.classList.remove('show');
+                    setTimeout(() => { toast.remove(); }, 300);
+                }
+            }, 5000);
+        }
+
+        // --- VARIABLES GLOBALES ---
+        let chunkIndex = 1;
+        window.TESIS = [];
+        const DB_NAME = 'ConsultoraDB';
+        const STORE_NAME = 'chunks';
+        
+        const isFileProtocol = window.location.protocol === 'file:';
+        const isLocalhost = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+        const isLocal = isFileProtocol || isLocalhost;
+
+        const GITHUB_META_URL = 'https://sosasoftcuba.github.io/base_consultora_uo/index/datos_meta.js';
+
+        // --- FUNCIONES DE INDEXEDDB ---
+        function openDB() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open(DB_NAME, 1);
+                request.onupgradeneeded = e => {
+                    if (!e.target.result.objectStoreNames.contains(STORE_NAME)) {
+                        e.target.result.createObjectStore(STORE_NAME);
+                    }
+                };
+                request.onsuccess = e => resolve(e.target.result);
+                request.onerror = e => reject(e.target.error);
+            });
+        }
+
+        async function getChunk(key) {
+            try {
+                const db = await openDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, 'readonly');
+                    const store = tx.objectStore(STORE_NAME);
+                    const req = store.get(key);
+                    req.onsuccess = () => resolve(req.result || null);
+                    req.onerror = () => resolve(null);
+                });
+            } catch (e) { return null; }
+        }
+
+        async function saveChunk(key, data) {
+            try {
+                const db = await openDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    store.put(data, key);
+                    tx.oncomplete = () => resolve();
+                    tx.onerror = () => resolve();
+                });
+            } catch (e) {}
+        }
+
+        async function clearStore() {
+            try {
+                const db = await openDB();
+                return new Promise((resolve) => {
+                    const tx = db.transaction(STORE_NAME, 'readwrite');
+                    const store = tx.objectStore(STORE_NAME);
+                    store.clear();
+                    tx.oncomplete = () => resolve();
+                    tx.onerror = () => resolve();
+                });
+            } catch (e) {}
+        }
+
+        function mostrarFechaActualizacion(versionStr) {
+            if (!versionStr || versionStr.length !== 14) return;
+            const year = versionStr.substring(0,4);
+            const month = versionStr.substring(4,6);
+            const day = versionStr.substring(6,8);
+            const hour = versionStr.substring(8,10);
+            const min = versionStr.substring(10,12);
+            document.getElementById('last-update').innerText = `Última actualización: ${day}/${month}/${year} a las ${hour}:${min}`;
+        }
+
+        // --- LÓGICA DEL MODAL (VISTAS SEPARADAS) ---
+        function abrirModalActualizacion() {
+            document.getElementById('txt-local-ver').innerText = window.LOCAL_VERSION || 'Desconocida';
+            document.getElementById('txt-remote-ver').innerText = window.REMOTE_VERSION || 'Desconocida';
+            document.getElementById('modal-update').style.display = 'flex';
+            
+            // Mostrar vista inicial
+            document.getElementById('modal-initial-view').style.display = 'block';
+            
+            // Ocultar vistas de resultado
+            document.getElementById('msg-downloaded').style.display = 'none';
+            document.getElementById('msg-skipped').style.display = 'none';
+        }
+
+        document.getElementById('btn-download-zip').addEventListener('click', () => {
+            // Ocultar texto de pregunta e inyectar la versión en el mensaje de descarga
+            document.getElementById('modal-initial-view').style.display = 'none';
+            document.getElementById('txt-download-ver').innerText = window.REMOTE_VERSION || 'nueva';
+            document.getElementById('msg-downloaded').style.display = 'block';
+        });
+
+        document.getElementById('btn-skip-zip').addEventListener('click', () => {
+            document.getElementById('modal-initial-view').style.display = 'none';
+            document.getElementById('msg-skipped').style.display = 'block';
+        });
+
+        document.getElementById('modal-update').addEventListener('click', (e) => {
+            if(e.target.id === 'modal-update') {
+                document.getElementById('modal-update').style.display = 'none';
+            }
+        });
+
+        // --- LÓGICA DE COMPROBACIÓN DE VERSIÓN ---
+        async function verificarActualizacion(localVersion) {
+            const btn = document.getElementById('btn-estado-version');
+            btn.style.display = 'inline-block'; 
+            
+            if (!navigator.onLine) {
+                btn.innerText = 'Modo Offline';
+                btn.style.backgroundColor = '#f1f5f9';
+                btn.style.color = '#64748b';
+                btn.style.borderColor = '#cbd5e1';
+                btn.onclick = (e) => { 
+                    e.preventDefault(); 
+                    mostrarToast('Sin conexión', 'No hay conexión a internet para verificar actualizaciones.', 'info'); 
+                };
+                return;
+            }
+
+            btn.innerText = 'Comprobando...';
+            btn.style.backgroundColor = '#f8fafc';
+            btn.style.color = '#64748b';
+            btn.style.borderColor = '#e2e8f0';
+            btn.classList.remove('blink');
+
+            try {
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 4000);
+                const resRemote = await fetch(GITHUB_META_URL + '?t=' + Date.now(), { signal: controller.signal });
+                clearTimeout(timeoutId);
+                
+                if (resRemote.ok) {
+                    const textRemote = await resRemote.text();
+                    const matchRemote = textRemote.match(/DATA_VERSION\s*=\s*["']([^"']+)["']/);
+                    
+                    if (matchRemote) {
+                        const remoteVersion = matchRemote[1];
+                        window.LOCAL_VERSION = localVersion;
+                        window.REMOTE_VERSION = remoteVersion;
+
+                        if (remoteVersion.localeCompare(localVersion) > 0) {
+                            btn.innerText = '¡Nueva Versión!';
+                            btn.classList.add('blink');
+                            btn.style.backgroundColor = ''; 
+                            btn.style.color = '';
+                            btn.style.borderColor = '';
+                            btn.onclick = (e) => { e.preventDefault(); abrirModalActualizacion(); };
+                        } else {
+                            btn.innerText = 'Última versión';
+                            btn.classList.remove('blink');
+                            btn.style.backgroundColor = '#ecfdf5';
+                            btn.style.color = '#065f46';
+                            btn.style.borderColor = '#10b981';
+                            btn.onclick = (e) => { 
+                                e.preventDefault(); 
+                                mostrarToast('Sistema Actualizado', 'Usted ya posee la última actualización de los datos.', 'success', localVersion); 
+                            };
+                        }
+                    }
+                } else {
+                    throw new Error("Error de red");
+                }
+            } catch (e) {
+                btn.innerText = 'Error de red';
+                btn.style.backgroundColor = '#fef2f2';
+                btn.style.color = '#991b1b';
+                btn.style.borderColor = '#f87171';
+                btn.onclick = (e) => { 
+                    e.preventDefault(); 
+                    mostrarToast('Error de conexión', 'No se pudo comprobar la versión. Compruebe su conexión a internet.', 'error'); 
+                };
+            }
+        }
+
+        // --- LÓGICA DE CARGA ---
+        async function iniciarDescarga() {
+            const loaderStatus = document.getElementById('loader-status');
+            
+            if (isLocal) {
+                loaderStatus.innerText = isLocalhost ? "Modo servidor local: buscando datos..." : "Modo archivo local: buscando datos...";
+                
+                const ua = navigator.userAgent;
+                const isAndroid = /Android/i.test(ua);
+                const browserName = /SamsungBrowser/i.test(ua) ? "Samsung Internet" :
+                                    /Edg/i.test(ua) ? "Microsoft Edge" :
+                                    /OPR|Opera/i.test(ua) ? "Opera" :
+                                    /Firefox|FxiOS/i.test(ua) ? "Firefox" :
+                                    /Chrome|CriOS/i.test(ua) ? "Chrome" : "Desconocido";
+
+                if (isFileProtocol && isAndroid && browserName !== "Firefox") {
+                    document.getElementById('warn-panel').style.display = 'block';
+                    document.getElementById('warn-instructions').innerHTML = `
+                        <p>Estás usando <strong>${browserName}</strong> en Android. Este navegador bloquea la lectura de archivos locales por seguridad.</p>
+                        <p><strong>Para solucionarlo, tienes 2 opciones:</strong></p>
+                        <ol>
+                            <li>Abre esta carpeta usando <strong>Mozilla Firefox</strong>.</li>
+                            <li>Instala una app de Servidor HTTP como <strong>Simple HTTP Server</strong> desde Play Store para servir la carpeta.</li>
+                        </ol>
+                    `;
+                }
+
+                const scriptMeta = document.createElement('script');
+                scriptMeta.src = 'index/datos_meta.js?t=' + Date.now();
+                scriptMeta.onload = () => {
+                    if (window.TOTAL_CHUNKS) {
+                        if (window.DATA_VERSION) {
+                            mostrarFechaActualizacion(window.DATA_VERSION);
+                            verificarActualizacion(window.DATA_VERSION);
+                        }
+                        cargarChunksLocal();
+                    } else {
+                        mostrarError("El archivo 'datos_meta.js' está vacío o corrupto. Revisa que la carpeta 'index' esté completa.");
+                    }
+                };
+                scriptMeta.onerror = () => {
+                    mostrarError("No se encontró la carpeta 'index' con los datos (index/datos_meta.js) junto al index.html. Asegúrate de haber copiado la carpeta completa.");
+                };
+                document.body.appendChild(scriptMeta);
+                return;
+            }
+
+            // --- MODO INTERNET (GitHub) ---
+            if (!navigator.onLine) {
+                document.getElementById('loader-overlay').style.display = 'none';
+                document.getElementById('error-content').innerHTML = `
+                    <h3>📡 Sin conexión a internet</h3>
+                    <p><strong>No hay conexión a internet.</strong></p>
+                    <p>Para buscar sin internet, por favor utiliza la <strong>versión portable (carpeta local)</strong> de este proyecto, que funciona 100% offline.</p>
+                `;
+                document.getElementById('error-panel').style.display = 'block';
+                document.getElementById('search-section').style.display = 'none';
+                document.getElementById('hero-section').style.display = 'none';
+                return;
+            }
+
+            loaderStatus.innerText = "Verificando actualizaciones en el servidor...";
+            try {
+                const res = await fetch('index/datos_meta.js?t=' + Date.now());
+                if (!res.ok) throw new Error("No meta");
+                
+                const metaText = await res.text();
+                const scriptMeta = document.createElement('script');
+                scriptMeta.textContent = metaText;
+                document.body.appendChild(scriptMeta);
+
+                const serverVersion = window.DATA_VERSION;
+                if (serverVersion) mostrarFechaActualizacion(serverVersion);
+                
+                const cachedVersion = await getChunk('version');
+
+                if (serverVersion && cachedVersion === serverVersion) {
+                    console.log("Caché válida. Cargando desde memoria interna.");
+                } else {
+                    console.log("Nueva versión detectada. Limpiando caché antigua.");
+                    await clearStore(); 
+                    await saveChunk('version', serverVersion);
+                }
+            } catch (e) {
+                console.log("Error verificando actualización, intentando caché offline.");
+            }
+            cargarChunksInternet();
+        }
+
+        function cargarChunksLocal() {
+            const total = window.TOTAL_CHUNKS || '?';
+            document.getElementById('loader-status').innerText = `Cargando index ${chunkIndex} de ${total}...`;
+            
+            let progress = Math.min((chunkIndex / window.TOTAL_CHUNKS) * 100, 99);
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+
+            if (chunkIndex > window.TOTAL_CHUNKS) { finalizarCarga(); return; }
+
+            const script = document.createElement('script');
+            script.src = `index/datos_${chunkIndex}.js?t=${Date.now()}`;
+            script.onload = () => { chunkIndex++; cargarChunksLocal(); };
+            script.onerror = () => { mostrarError("Faltan archivos de datos locales. Revisa que la carpeta 'index' esté completa."); };
+            document.body.appendChild(script);
+        }
+
+        async function cargarChunksInternet() {
+            const total = window.TOTAL_CHUNKS || 55;
+            const BATCH_SIZE = 5;
+            let completados = 0;
+            
+            if (chunkIndex > total) {
+                finalizarCarga();
+                return;
+            }
+
+            async function obtenerBloque(index) {
+                let cached = await getChunk(index);
+                let text = cached;
+                
+                if (!text) {
+                    const res = await fetch(`index/datos_${index}.js`);
+                    if (!res.ok) throw new Error("404");
+                    text = await res.text();
+                    await saveChunk(index, text);
+                }
+                
+                completados++;
+                let progress = Math.min((completados / total) * 100, 99);
+                document.getElementById('progress-bar').style.width = `${progress}%`;
+                document.getElementById('loader-status').innerText = `Descargando tesis: ${completados} de ${total}...`;
+                
+                return { index, text };
+            }
+
+            while (chunkIndex <= total) {
+                let lote = [];
+                for (let i = 0; i < BATCH_SIZE && chunkIndex <= total; i++) {
+                    lote.push(chunkIndex);
+                    chunkIndex++;
+                }
+
+                try {
+                    const resultados = await Promise.all(lote.map(idx => obtenerBloque(idx)));
+                    resultados.sort((a, b) => a.index - b.index).forEach(item => {
+                        const script = document.createElement('script');
+                        script.textContent = item.text;
+                        document.body.appendChild(script);
+                    });
+                } catch (err) {
+                    console.warn("Fallo en descarga paralela, cayendo a modo secuencial de respaldo", err);
+                    for (const idx of lote) {
+                        try {
+                            const item = await obtenerBloque(idx);
+                            const script = document.createElement('script');
+                            script.textContent = item.text;
+                            document.body.appendChild(script);
+                        } catch(e) {
+                            finalizarCarga();
+                            return;
+                        }
+                    }
+                }
+            }
+            finalizarCarga();
+        }
+
+        function finalizarCarga() {
+            document.getElementById('progress-bar').style.width = '100%';
+            document.getElementById('loader-status').innerText = '¡Datos listos! Iniciando buscador...';
+            setTimeout(() => {
+                document.getElementById('loader-overlay').style.display = 'none';
+                initApp();
+            }, 500);
+        }
+
+        function mostrarError(mensaje) {
+            document.getElementById('loader-overlay').style.display = 'none';
+            const errorPanel = document.getElementById('error-panel');
+            errorPanel.style.display = 'block';
+            document.getElementById('search-section').style.display = 'none';
+            document.getElementById('hero-section').style.display = 'none';
+            document.getElementById('error-content').innerHTML = `
+                <h3>🚨 No se pudo iniciar el buscador</h3>
+                <p>${mensaje}</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Si el problema persiste, descarga la <strong>versión portable</strong> del repositorio para uso offline o consulta el <a href="https://github.com/sosasoftcuba/base_consultora_uo" target="_blank" rel="noopener">repositorio en GitHub</a>.</p>
+            `;
+        }
+
+        // --- LÓGICA DEL BUSCADOR ---
+        function initApp() {
+            if (typeof window.TESIS === 'undefined' || window.TESIS.length === 0) {
+                document.getElementById('error-content').innerHTML = `
+                    <h3>📭 Base de datos vacía</h3>
+                    <p>No se cargó ninguna tesis en memoria. Es posible que falten archivos de datos o que la carpeta <code>index/</code> esté incompleta.</p>
+                    <p style="margin-top: 1rem; font-size: 0.9rem;">Descarga nuevamente la <strong>versión portable</strong> del repositorio o revisa el <a href="https://github.com/sosasoftcuba/base_consultora_uo" target="_blank" rel="noopener">repositorio en GitHub</a>.</p>
+                `;
+                document.getElementById('error-panel').style.display = 'block';
+                document.getElementById('search-section').style.display = 'none';
+                document.getElementById('hero-section').style.display = 'none';
+                return;
+            }
+
+            const searchSection = document.getElementById('search-section');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const resultsList = document.getElementById('resultsList');
+            const resultsInfo = document.getElementById('resultsInfo');
+            const envInfo = document.getElementById('env-info');
+            const pagination = document.getElementById('pagination');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const pageInfo = document.getElementById('pageInfo');
+
+            const RESULTADOS_POR_PAGINA = 8; 
+            let paginaActual = 1;
+            let totalPaginas = 1;
+            let resultadosFiltrados = [];
+            let globalModifier = null; 
+
+            document.querySelectorAll('.current-year').forEach(el => el.textContent = new Date().getFullYear());
+
+            const ua = navigator.userAgent;
+            let osName = "#sosasoftcuba";
+            if (/Windows/i.test(ua)) osName = "Windows";
+            else if (/Macintosh/i.test(ua) && !/Mobile/i.test(ua)) osName = "macOS";
+            else if (/Android/i.test(ua)) osName = "Android";
+            else if (/iPhone|iPad|iPod/i.test(ua)) osName = "iOS";
+            else if (/Linux/i.test(ua)) osName = "Linux";
+
+            let browserName = "#sosasoftcuba";
+            if (/SamsungBrowser/i.test(ua)) browserName = "Samsung Internet";
+            else if (/Edg/i.test(ua)) browserName = "Microsoft Edge";
+            else if (/OPR|Opera/i.test(ua)) browserName = "Opera";
+            else if (/Firefox|FxiOS/i.test(ua)) browserName = "Firefox";
+            else if (/Chrome|CriOS/i.test(ua)) browserName = "Chrome";
+            else if (/Safari/i.test(ua)) browserName = "Safari";
+
+            envInfo.innerHTML = `
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Navegador: <strong>${browserName}</strong> desde <strong>${osName}</strong>
+            `;
+
+            const tesis = window.TESIS;
+            const stopWords = ["de", "la", "el", "los", "las", "lo", "un", "una", "unos", "unas", "y", "o", "a", "en", "con", "por", "para", "del", "al", "que", "entre", "sin", "sobre", "tras", "ni", "e", "u", "es", "son", "como"];
+
+            const normalizeText = (text) => text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            const escapeHTML = (str) => str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
+            const escapeRegExp = (string) => string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+            const getStemVariations = (word) => {
+                let variations = [word];
+                if (word.length > 3) {
+                    if (word.endsWith('es')) { variations.push(word.slice(0, -2)); variations.push(word.slice(0, -1)); }
+                    else if (word.endsWith('s')) { variations.push(word.slice(0, -1)); }
+                    else { variations.push(word + 's'); variations.push(word + 'es'); }
+                }
+                return [...new Set(variations)];
+            };
+
+            const buildHighlightRegex = (terms) => {
+                const accentMap = { 'a': '[aáàäâ]', 'e': '[eéèëê]', 'i': '[iíìïî]', 'o': '[oóòöô]', 'u': '[uúùüû]' };
+                const patterns = terms.map(term => escapeRegExp(term).split('').map(char => accentMap[char.toLowerCase()] || char).join(''));
+                patterns.sort((a, b) => b.length - a.length);
+                return patterns.length ? new RegExp(`(${patterns.join('|')})`, 'gi') : null;
+            };
+
+            const highlightMatches = (text, regex) => {
+                let highlighted = escapeHTML(text);
+                return regex ? highlighted.replace(regex, '<mark>$1</mark>') : highlighted;
+            };
+
+            const createSnippet = (text, searchTerms, exactPhrase) => {
+                const normalizedText = normalizeText(text);
+                let firstMatchIndex = -1;
+
+                if (exactPhrase && exactPhrase.length > 2) {
+                    const idx = normalizedText.indexOf(exactPhrase);
+                    if (idx !== -1) firstMatchIndex = idx;
+                }
+
+                if (firstMatchIndex === -1 && globalModifier) {
+                    const modVariations = getStemVariations(globalModifier);
+                    for (const m of modVariations) {
+                        const idx = normalizedText.indexOf(m);
+                        if (idx !== -1) { firstMatchIndex = idx; break; }
+                    }
+                }
+
+                if (firstMatchIndex === -1) {
+                    for (const term of searchTerms) {
+                        const index = normalizedText.indexOf(term);
+                        if (index !== -1) { firstMatchIndex = index; break; }
+                    }
+                }
+
+                if (firstMatchIndex === -1) return text.substring(0, 200) + '...';
+
+                const start = Math.max(0, firstMatchIndex - 100);
+                const end = Math.min(text.length, firstMatchIndex + 800);
+                let snippet = text.substring(start, end);
+                return (start > 0 ? '...' : '') + snippet + (end < text.length ? '...' : '');
+            };
+
+            const renderizarPagina = (query, normalizedQuery, searchTerms, highlightRegex) => {
+                resultsList.innerHTML = '';
+                if (resultadosFiltrados.length === 0) {
+                    resultsInfo.textContent = 'No se encontraron resultados.';
+                    pagination.style.display = 'none';
+                    return;
+                }
+
+                pagination.style.display = 'flex';
+                pageInfo.textContent = `Pág. ${paginaActual} de ${totalPaginas}`;
+                prevBtn.disabled = paginaActual === 1;
+                nextBtn.disabled = paginaActual === totalPaginas;
+
+                const inicio = (paginaActual - 1) * RESULTADOS_POR_PAGINA;
+                const fin = inicio + RESULTADOS_POR_PAGINA;
+                const itemsPagina = resultadosFiltrados.slice(inicio, fin);
+
+                itemsPagina.forEach(({ item }) => {
+                    const rawSnippet = createSnippet(item.texto, searchTerms, normalizedQuery); 
+                    let fuenteStr = item.fuente || 'Local';
+                    if (!isLocal) { fuenteStr = "Internet"; }
+
+                    const card = document.createElement('article');
+                    card.className = 'card';
+                    
+                    card.innerHTML = `
+                        <div class="source-tag">Fuente: ${fuenteStr}</div>
+                        <h2 class="card-title">
+                            <a href="${item.archivo}" target="_blank" onclick="registrarConsulta()">
+                                ${item.titulo.startsWith('Tesis') ? '' : 'Tesis: '}${highlightMatches(item.titulo, highlightRegex)}
+                            </a>
+                        </h2>
+                        <p class="card-text">${highlightMatches(rawSnippet, highlightRegex)}</p>
+                        <div class="card-footer">
+                            <div class="info-tag">
+                                (Resultado en las primeras 20,000 palabras)
+                            </div>
+                            <a href="${item.archivo}" target="_blank" class="btn-open" onclick="registrarConsulta()">
+                                Leer documento
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+                            </a>
+                        </div>
+                    `;
+                    resultsList.appendChild(card);
+                });
+            };
+
+            const performSearch = () => {
+                const query = searchInput.value.trim();
+                if (query.length > 0) clearBtn.style.display = 'flex';
+                else {
+                    clearBtn.style.display = 'none';
+                    resultsList.innerHTML = '';
+                    resultsInfo.textContent = '';
+                    pagination.style.display = 'none';
+                    return;
+                }
+
+                const normalizedQuery = normalizeText(query);
+                const rawWords = normalizedQuery.split(/\s+/).filter(t => t.length > 0);
+
+                // Agrupación de modificadores (ej. "no verbales")
+                let groupedTerms = [];
+                const connectors = ['no', 'sin', 'con', 'para', 'por', 'en', 'de', 'del']; 
+
+                for (let i = 0; i < rawWords.length; i++) {
+                    const word = rawWords[i];
+                    if (connectors.includes(word) && i + 1 < rawWords.length) {
+                        groupedTerms.push(word + ' ' + rawWords[i + 1]);
+                        i++; 
+                    } else {
+                        groupedTerms.push(word);
+                    }
+                }
+
+                let searchTerms = groupedTerms.filter(t => !stopWords.includes(t) && t.length > 1);
+                if (searchTerms.length === 0) searchTerms = groupedTerms;
+
+                let docFreq = {};
+                searchTerms.forEach(t => docFreq[t] = 0);
+                
+                tesis.forEach(item => {
+                    const textNorm = normalizeText(item.titulo + " " + item.texto);
+                    searchTerms.forEach(term => {
+                        const variations = getStemVariations(term);
+                        if (variations.some(v => textNorm.includes(v))) {
+                            docFreq[term]++;
+                        }
+                    });
+                });
+
+                const sortedTerms = [...searchTerms].sort((a, b) => docFreq[a] - docFreq[b]);
+                
+                globalModifier = sortedTerms[0]; 
+                let baseNoun = sortedTerms[sortedTerms.length - 1]; 
+
+                let exactPhrases = [normalizedQuery];
+                if (searchTerms.length > 1) {
+                    exactPhrases.push(searchTerms.join(' '));
+                    exactPhrases.push([...searchTerms].reverse().join(' '));
+                }
+
+                const termsToHighlight = [...new Set([...exactPhrases, ...searchTerms])].filter(t => t.length > 1);
+                const highlightRegex = buildHighlightRegex(termsToHighlight);
+
+                resultadosFiltrados = [];
+                tesis.forEach(item => {
+                    let score = 0;
+                    const titleNorm = normalizeText(item.titulo);
+                    const textNorm = normalizeText(item.texto);
+                    
+                    let hasExact = false;
+                    let hasModifier = false;
+                    let hasBase = false;
+
+                    exactPhrases.forEach(phrase => {
+                        const regexPhrase = new RegExp(escapeRegExp(phrase), 'g');
+                        const occTitle = (titleNorm.match(regexPhrase) || []).length;
+                        const occText = (textNorm.match(regexPhrase) || []).length;
+                        if (occTitle > 0) { score += 10000000 + (occTitle * 1000); hasExact = true; }
+                        if (occText > 0) { score += 5000000 + (occText * 1000); hasExact = true; }
+                    });
+
+                    if (globalModifier) {
+                        const modVariations = getStemVariations(globalModifier);
+                        modVariations.forEach(v => {
+                            const regexMod = new RegExp(escapeRegExp(v), 'g');
+                            const occTitle = (titleNorm.match(regexMod) || []).length;
+                            const occText = (textNorm.match(regexMod) || []).length;
+                            if (occTitle > 0) { score += 1000000 + (occTitle * 100); hasModifier = true; }
+                            if (occText > 0) { score += 500000 + (occText * 100); hasModifier = true; }
+                        });
+                    }
+
+                    if (baseNoun) {
+                        const baseVariations = getStemVariations(baseNoun);
+                        baseVariations.forEach(v => {
+                            const regexBase = new RegExp(escapeRegExp(v), 'g');
+                            const occTitle = (titleNorm.match(regexBase) || []).length;
+                            const occText = (textNorm.match(regexBase) || []).length;
+                            if (occTitle > 0) { score += 10000 + occTitle; hasBase = true; }
+                            if (occText > 0) { score += 1000 + occText; hasBase = true; }
+                        });
+                    }
+
+                    if (hasExact || hasModifier || hasBase) {
+                        resultadosFiltrados.push({ item, score });
+                    }
+                });
+
+                resultadosFiltrados.sort((a, b) => b.score - a.score);
+                totalPaginas = Math.ceil(resultadosFiltrados.length / RESULTADOS_POR_PAGINA);
+                paginaActual = 1; 
+
+                if (resultadosFiltrados.length > 0) {
+                    resultsInfo.innerHTML = `Se encontraron <strong>${resultadosFiltrados.length}</strong> tesis para "<em>${escapeHTML(query)}</em>"`;
+                }
+                renderizarPagina(query, normalizedQuery, searchTerms, highlightRegex);
+            };
+
+            prevBtn.addEventListener('click', () => {
+                if (paginaActual > 1) {
+                    paginaActual--;
+                    const query = searchInput.value.trim();
+                    const normalizedQuery = normalizeText(query);
+                    const rawWords = normalizedQuery.split(/\s+/).filter(t => t.length > 0);
+                    
+                    let groupedTerms = [];
+                    const connectors = ['no', 'sin', 'con', 'para', 'por', 'en', 'de', 'del'];
+                    for (let i = 0; i < rawWords.length; i++) {
+                        const word = rawWords[i];
+                        if (connectors.includes(word) && i + 1 < rawWords.length) {
+                            groupedTerms.push(word + ' ' + rawWords[i + 1]);
+                            i++;
+                        } else {
+                            groupedTerms.push(word);
+                        }
+                    }
+                    let searchTerms = groupedTerms.filter(t => !stopWords.includes(t) && t.length > 1);
+                    if (searchTerms.length === 0) searchTerms = groupedTerms;
+                    
+                    let exactPhrases = [normalizedQuery];
+                    if (searchTerms.length > 1) {
+                        exactPhrases.push(searchTerms.join(' '));
+                        exactPhrases.push([...searchTerms].reverse().join(' '));
+                    }
+                    const termsToHighlight = [...new Set([...exactPhrases, ...searchTerms])].filter(t => t.length > 1);
+                    const highlightRegex = buildHighlightRegex(termsToHighlight);
+                    
+                    renderizarPagina(query, normalizedQuery, searchTerms, highlightRegex);
+                    window.scrollTo({ top: searchSection.offsetTop - 20, behavior: 'smooth' });
+                }
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if (paginaActual < totalPaginas) {
+                    paginaActual++;
+                    const query = searchInput.value.trim();
+                    const normalizedQuery = normalizeText(query);
+                    const rawWords = normalizedQuery.split(/\s+/).filter(t => t.length > 0);
+                    
+                    let groupedTerms = [];
+                    const connectors = ['no', 'sin', 'con', 'para', 'por', 'en', 'de', 'del'];
+                    for (let i = 0; i < rawWords.length; i++) {
+                        const word = rawWords[i];
+                        if (connectors.includes(word) && i + 1 < rawWords.length) {
+                            groupedTerms.push(word + ' ' + rawWords[i + 1]);
+                            i++;
+                        } else {
+                            groupedTerms.push(word);
+                        }
+                    }
+                    let searchTerms = groupedTerms.filter(t => !stopWords.includes(t) && t.length > 1);
+                    if (searchTerms.length === 0) searchTerms = groupedTerms;
+                    
+                    let exactPhrases = [normalizedQuery];
+                    if (searchTerms.length > 1) {
+                        exactPhrases.push(searchTerms.join(' '));
+                        exactPhrases.push([...searchTerms].reverse().join(' '));
+                    }
+                    const termsToHighlight = [...new Set([...exactPhrases, ...searchTerms])].filter(t => t.length > 1);
+                    const highlightRegex = buildHighlightRegex(termsToHighlight);
+                    
+                    renderizarPagina(query, normalizedQuery, searchTerms, highlightRegex);
+                    window.scrollTo({ top: searchSection.offsetTop - 20, behavior: 'smooth' });
+                }
+            });
+
+            let debounceTimer;
+            searchInput.addEventListener('input', () => {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(performSearch, 300);
+            });
+            searchBtn.addEventListener('click', performSearch);
+            clearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                searchInput.focus();
+                performSearch();
+            });
+
+            // Soporte para búsquedas mediante URL (?q=...) — habilita deep-linking y hace
+            // real el SearchAction declarado en los datos estructurados JSON-LD (Schema.org).
+            try {
+                const params = new URLSearchParams(window.location.search);
+                const initialQuery = params.get('q');
+                if (initialQuery && initialQuery.trim().length > 0) {
+                    searchInput.value = initialQuery.trim();
+                    performSearch();
+                    window.scrollTo({ top: searchSection.offsetTop - 20, behavior: 'smooth' });
+                }
+            } catch (e) { /* navegadores antiguos sin URLSearchParams: se ignora sin fallos */ }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            iniciarDescarga();
+        });
+    </script>
 </body>
 </html>
