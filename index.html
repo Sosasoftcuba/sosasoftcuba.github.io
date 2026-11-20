@@ -1,268 +1,151 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Acceso Denegado | Consultora de Tesis</title>
+    <title>Página no encontrada · Macarenco</title>
+    
+    <!-- Favicon -->
+    <link href="imagen/logo-apc.png" rel="icon">
 
-    <!-- RUTAS ABSOLUTAS PARA GITHUB PAGES -->
-    <link rel="icon" type="image/png" href="https://SosaSoftCuba.github.io/base_consultora_uo/imagen/8 xxfavicon.png">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
-    
+    <!-- Google Fonts: Poppins para todo (más ligera y legible en móviles) -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"> 
+
     <style>
+        /* Variables de color basadas en Macarenco */
         :root {
-            --bg-page: #f8fafc; --surface: #ffffff; --primary: #1d4ed8; --primary-light: #eff6ff;
-            --primary-hover: #1e40af; --text-main: #1e293b; --text-muted: #64748b; --border: #e2e8f0;
-            --radius: 12px; --shadow-lg: 0 10px 25px -3px rgba(0,0,0,0.3);
-        }
-        
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-page); 
-            color: var(--text-main); 
-            line-height: 1.6; 
-            display: flex; 
-            flex-direction: column; 
-            min-height: 100vh; 
-            overflow: hidden; 
-            position: relative;
+            --azul-cielo: #039ed6;
+            --azul-oscuro: #026892;
+            --azul-fuerte: #0044cc; 
+            --blanco: #ffffff;
+            --gris-oscuro: #1a2630;
         }
 
-        /* --- FONDO 404 GIGANTE Y OPACO --- */
-        .bg-404 {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 35vw; 
-            font-weight: 900;
-            color: rgba(29, 78, 216, 0.05); 
-            z-index: -1;
-            user-select: none;
-            pointer-events: none;
-            line-height: 1;
-            white-space: nowrap;
-            letter-spacing: -0.05em;
-        }
-
-        /* --- HEADER --- */
-        header { background-color: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 10; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .header-content { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        .brand-group { display: flex; align-items: center; gap: 1rem; }
-        .logo-header-img { height: 55px; width: auto; object-fit: contain; }
-        .separator { font-size: 2rem; font-weight: 300; color: var(--border); line-height: 1; }
-        .logo-text { display: flex; flex-direction: column; line-height: 1.3; text-align: left; }
-        .logo-title { font-size: 1.15rem; font-weight: 700; color: var(--primary); }
-        .logo-subtitle { font-size: 0.9rem; font-weight: 500; color: var(--text-muted); }
-
-        /* --- MAIN CONTENT --- */
-        main { 
-            flex: 1; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            padding: 2rem 1.5rem; 
-            z-index: 1;
-        }
-
-        /* --- TARJETA DE ACCESO DENEGADO --- */
-        .error-card {
-            background-color: var(--text-main); 
-            border: 3px solid #000; 
-            border-radius: 8px;
-            padding: 3rem 2rem;
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-            box-shadow: var(--shadow-lg);
-            color: #ffffff;
+        body {
+            margin: 0;
+            padding: 20px; /* Margen de seguridad para móviles */
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-fuerte));
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 1.5rem;
-        }
-
-        .error-logo-container {
-            width: 100%;
-            display: flex;
             justify-content: center;
+            color: var(--gris-oscuro);
+            box-sizing: border-box;
         }
-        
-        .error-logo-img { 
-            max-width: 140px; 
-            max-height: 140px; 
+
+        .error-card {
+            background-color: var(--blanco);
+            border-radius: 15px;
+            padding: 40px 20px;
+            text-align: center;
+            max-width: 500px;
+            width: 100%; /* Se adapta al ancho del móvil */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            /* Borde degradado */
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+        }
+
+        /* LOGO: Ajustado para que no sea gigante en celulares */
+        .error-logo {
+            width: 80%; /* Ocupa el 80% del ancho de la tarjeta */
+            max-width: 250px; /* Pero nunca más de 250px */
+            height: auto;
+            margin-bottom: 20px;
             object-fit: contain;
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3)); 
         }
 
-        .error-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        /* TÍTULO 404 CON FUENTE NORMAL Y LEGIBLE */
+        .error-code {
+            font-family: 'Poppins', sans-serif;
+            font-size: 5rem;
+            font-weight: 800;
+            color: var(--azul-fuerte);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .error-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gris-oscuro);
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .error-desc {
+            font-size: 0.95rem;
+            color: #555;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* BOTÓN GRANDE PARA TOCAR EN MÓVILES */
+        .btn-home {
+            display: block; /* Ocupa todo el ancho en móviles */
             width: 100%;
-        }
-        
-        .error-title { 
-            font-size: clamp(1.8rem, 5vw, 2.5rem); 
-            font-weight: 700; 
-            margin-bottom: 1rem; 
-            color: #ffffff;
-            letter-spacing: -0.02em;
-        }
-
-        .error-text { 
-            font-size: clamp(0.95rem, 3vw, 1.1rem); 
-            color: #cbd5e1; 
-            margin-bottom: 2rem; 
+            box-sizing: border-box;
+            padding: 15px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--blanco);
+            text-decoration: none;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-cielo)) border-box;
+            transition: all 0.3s ease;
         }
 
-        /* --- BOTÓN --- */
-        .btn-primary {
-            background-color: var(--primary); 
-            color: white; 
-            border: 2px solid #000;
-            border-radius: 40px; 
-            padding: 1rem 2rem; 
-            font-size: 1.1rem; 
-            font-weight: 700; 
-            cursor: pointer; 
-            transition: all 0.2s; 
-            text-decoration: none; 
-            display: inline-block;
-            width: 100%;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        }
-        
-        .btn-primary:hover { 
-            background-color: var(--primary-hover); 
+        .btn-home:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 68, 204, 0.4);
         }
 
-        /* --- CONTADOR REGRESIVO --- */
-        .timer-container {
-            margin-top: 1.5rem;
-            font-size: 0.9rem;
-            color: #94a3b8;
+        .credits {
+            margin-top: 25px;
+            font-size: 0.75rem;
+            color: #888;
         }
-        .timer-highlight { color: #ffffff; font-weight: 700; font-size: 1.1rem; }
-
-        /* --- RESPONSIVE PARA MÓVILES --- */
-        @media (max-width: 768px) {
-            .header-content { flex-direction: column; text-align: center; }
-            .brand-group { flex-direction: column; gap: 0.5rem; }
-            .separator { display: none; }
-            .logo-text { text-align: center; }
-            .logo-header-img { height: 80px; }
-            
-            .error-card { 
-                padding: 2.5rem 1.5rem; 
-                border-width: 2px; 
-            }
-            .bg-404 { font-size: 45vw; } 
+        .credits strong {
+            color: var(--azul-oscuro);
         }
 
-        /* --- DISEÑO PARA PANTALLAS GRANDES (PC/TABLET HORIZONTAL) --- */
-        @media (min-width: 769px) {
-            .bg-404 { font-size: 28vw; }
-            
-            .error-card {
-                max-width: 850px;
-                flex-direction: row;
-                text-align: left;
-                padding: 4rem 3rem;
-                gap: 3rem;
-            }
-
-            .error-logo-container {
-                width: 250px;
-                flex-shrink: 0;
-            }
-
-            .error-logo-img {
-                max-width: 100%;
-                max-height: 200px;
-            }
-
-            .error-content {
-                align-items: flex-start;
-            }
-
-            .btn-primary {
-                width: auto;
-                min-width: 250px;
-            }
-
-            .timer-container {
-                text-align: left;
-                width: 100%;
-            }
+        /* Ajustes extra para pantallas muy pequeñas */
+        @media (max-width: 400px) {
+            .error-code { font-size: 4rem; }
+            .error-title { font-size: 1.2rem; }
+            .error-card { padding: 30px 15px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- 404 Gigante de fondo -->
-    <div class="bg-404">404</div>
-
-    <header>
-        <div class="header-content">
-            <div class="brand-group">
-                <!-- Ruta absoluta para el logo del header -->
-                <img src="/base_consultora_uo/imagen/logo.png" alt="Logo Consultora" class="logo-header-img" onerror="this.style.display='none'">
-                <span class="separator">|</span>
-                <div class="logo-text">
-                    <span class="logo-title">Consultora de Tesis</span>
-                    <span class="logo-subtitle">Universidad de Oriente</span>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <main>
-        <div class="error-card">
-            <div class="error-logo-container">
-                <!-- Ruta absoluta para el logo de SosaSoftCuba -->
-                <img src="/base_consultora_uo/imagen/logo_sosasoftcuba.png" alt="SosaSoftCuba" class="error-logo-img" onerror="this.style.display='none'">
-            </div>
-            
-            <div class="error-content">
-                <h1 class="error-title">Acceso Denegado</h1>
-                <p class="error-text">
-                    Lo sentimos, la página o el recurso que estás intentando abrir no existe, ha sido movido o se encuentra restringido. 
-                    <br><br>
-                    Por seguridad, serás redirigido automáticamente al repositorio principal.
-                </p>
-                
-                <!-- Ruta absoluta para el botón de volver -->
-                <a href="/base_consultora_uo/index.html" class="btn-primary">Volver al Repositorio Ahora</a>
-                
-                <div class="timer-container">
-                    Redirigiendo en <span class="timer-highlight" id="seconds">5</span> segundos...
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        // Temporizador visual
-        let timeLeft = 5;
-        const timerElement = document.getElementById('seconds');
+    <div class="error-card">
+        <!-- Tu Logo -->
+        <img src="https://sosasoftcuba.github.io/revista_macarencos/imagen/logo_sosasoftcuba.png" alt="SosaSoftCuba" class="error-logo">
         
-        const countdown = setInterval(() => {
-            timeLeft--;
-            if (timeLeft >= 0) {
-                timerElement.textContent = timeLeft;
-            }
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                // Redirección controlada por JS (usando ruta absoluta)
-                window.location.href = 'https://SosaSoftCuba.github.io/base_consultora_uo/';
-            }
-        }, 1000);
-    </script>
+        <!-- Código de error con fuente estándar -->
+        <h1 class="error-code">404</h1>
+        
+        <!-- Mensaje -->
+        <h2 class="error-title">Página no encontrada</h2>
+        <p class="error-desc">
+            La página que buscas no existe o ha sido movida. Regresa a la portada para seguir leyendo.
+        </p>
+        
+        <!-- Botón grande para dedos en móviles (usando flecha unicode en lugar de FontAwesome) -->
+        <a href="https://sosasoftcuba.github.io/revista_macarencos/" class="btn-home">
+            ← Volver al Inicio
+        </a>
+
+        <div class="credits">
+            <strong>SosaSoftCuba</strong> / Asociación de Pedagogos de Cuba / 2026
+        </div>
+    </div>
+
 </body>
 </html>
