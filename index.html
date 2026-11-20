@@ -1,151 +1,480 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página no encontrada · Macarenco</title>
+    <title>SosaSoftCuba · Proyectos Colaborativos</title>
     
-    <!-- Favicon -->
-    <link href="imagen/logo-apc.png" rel="icon">
-
-    <!-- Google Fonts: Poppins para todo (más ligera y legible en móviles) -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet"> 
 
     <style>
-        /* Variables de color basadas en Macarenco */
+        /* =========================================
+           VARIABLES Y CONFIGURACIÓN GENERAL
+           ========================================= */
         :root {
-            --azul-cielo: #039ed6;
-            --azul-oscuro: #026892;
-            --azul-fuerte: #0044cc; 
+            --negro-fondo: #0a0a0a;
+            --negro-tarjeta: #111111;
+            --amarillo: #FFD700; 
+            --rojo: #E53935;     
             --blanco: #ffffff;
-            --gris-oscuro: #1a2630;
+            --gris-texto: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            margin: 0;
-            padding: 20px; /* Margen de seguridad para móviles */
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-fuerte));
-            min-height: 100vh;
+            background-color: var(--negro-fondo);
+            background-image: 
+                linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            color: var(--blanco);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           BANNER PRINCIPAL
+           ========================================= */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(0,0,0,0.95) 0%, rgba(229,57,53,0.4) 100%);
+            padding: 80px 20px;
+            text-align: center;
+            border-bottom: 5px solid var(--amarillo);
+            border-image: repeating-linear-gradient(45deg, var(--amarillo), var(--amarillo) 10px, transparent 10px, transparent 20px) 5;
+        }
+
+        .hero h1 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .hero h1 span { color: var(--amarillo); }
+
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--blanco);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-left: 5px solid var(--rojo);
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        /* =========================================
+           SECCIÓN DEL CARRUSEL GAMER (COVERFLOW)
+           ========================================= */
+        .carrusel-section {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.2rem;
+            color: var(--amarillo);
+            margin-bottom: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .carrusel-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--gris-oscuro);
-            box-sizing: border-box;
         }
 
-        .error-card {
-            background-color: var(--blanco);
-            border-radius: 15px;
-            padding: 40px 20px;
-            text-align: center;
-            max-width: 500px;
-            width: 100%; /* Se adapta al ancho del móvil */
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            /* Borde degradado */
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+        /* Tarjetas (Estilo Base) */
+        .card {
+            position: absolute;
+            width: 65%;
+            background-color: var(--negro-tarjeta);
+            border-radius: 20px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 2px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.6) translateX(0);
         }
 
-        /* LOGO: Ajustado para que no sea gigante en celulares */
-        .error-logo {
-            width: 80%; /* Ocupa el 80% del ancho de la tarjeta */
-            max-width: 250px; /* Pero nunca más de 250px */
-            height: auto;
-            margin-bottom: 20px;
-            object-fit: contain;
-        }
-
-        /* TÍTULO 404 CON FUENTE NORMAL Y LEGIBLE */
-        .error-code {
-            font-family: 'Poppins', sans-serif;
-            font-size: 5rem;
-            font-weight: 800;
-            color: var(--azul-fuerte);
-            margin: 0;
-            line-height: 1;
-        }
-
-        .error-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--gris-oscuro);
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-
-        .error-desc {
-            font-size: 0.95rem;
-            color: #555;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
-
-        /* BOTÓN GRANDE PARA TOCAR EN MÓVILES */
-        .btn-home {
-            display: block; /* Ocupa todo el ancho en móviles */
-            width: 100%;
-            box-sizing: border-box;
-            padding: 15px;
-            font-size: 1rem;
-            font-weight: 600;
+        .card-header {
+            background-color: var(--rojo);
             color: var(--blanco);
-            text-decoration: none;
+            padding: 15px;
+            text-align: center;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid var(--amarillo);
+        }
+
+        /* --- NUEVO CONTENEDOR DE IMAGEN CON NÚMERO --- */
+        .card-img-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* --- BADGE NUMÉRICO (ESTILO GAMER) --- */
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--rojo);
+            color: var(--blanco);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            padding: 5px 15px;
             border-radius: 8px;
-            border: 2px solid transparent;
-            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) padding-box,
-                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-cielo)) border-box;
-            transition: all 0.3s ease;
+            border: 2px solid var(--amarillo);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+            z-index: 10;
+            letter-spacing: 1px;
         }
 
-        .btn-home:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 68, 204, 0.4);
+        .card-body {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
         }
 
-        .credits {
-            margin-top: 25px;
-            font-size: 0.75rem;
-            color: #888;
-        }
-        .credits strong {
-            color: var(--azul-oscuro);
+        .card-description {
+            color: var(--gris-texto);
+            font-size: 1rem;
+            margin-bottom: 20px;
+            text-align: justify;
         }
 
-        /* Ajustes extra para pantallas muy pequeñas */
-        @media (max-width: 400px) {
-            .error-code { font-size: 4rem; }
-            .error-title { font-size: 1.2rem; }
-            .error-card { padding: 30px 15px; }
+        .btn-visitar {
+            display: block;
+            text-align: center;
+            background-color: transparent;
+            color: var(--amarillo);
+            border: 2px solid var(--amarillo);
+            padding: 12px 20px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-visitar:hover {
+            background-color: var(--amarillo);
+            color: var(--negro-fondo);
+            box-shadow: 0 0 15px var(--amarillo);
+        }
+
+        /* ESTADOS DEL CARRUSEL */
+        .card.active {
+            opacity: 1;
+            pointer-events: auto;
+            z-index: 10;
+            transform: translateX(0) scale(1);
+            border-color: var(--amarillo);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .card.prev {
+            opacity: 0.5;
+            z-index: 5;
+            transform: translateX(-60%) scale(0.8);
+            filter: grayscale(80%);
+        }
+
+        .card.next {
+            opacity: 0.5;
+            z-index: 5;
+            transform: translateX(60%) scale(0.8);
+            filter: grayscale(80%);
+        }
+
+        .card.hidden {
+            opacity: 0;
+            z-index: 1;
+            transform: translateX(0) scale(0.6);
+        }
+
+        /* BOTONES DE NAVEGACIÓN */
+        .carrusel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: var(--negro-tarjeta);
+            color: var(--amarillo);
+            border: 2px solid var(--amarillo);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 20;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            transition: all 0.3s;
+        }
+
+        .carrusel-btn:hover {
+            background-color: var(--amarillo);
+            color: var(--negro-fondo);
+            box-shadow: 0 0 25px var(--amarillo);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .btn-prev { left: 0; }
+        .btn-next { right: 0; }
+
+        /* FOOTER */
+        footer {
+            background-color: #050505;
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 2px dashed var(--rojo);
+            color: var(--gris-texto);
+            font-size: 0.9rem;
+            margin-top: 20px;
+        }
+
+        footer strong { color: var(--amarillo); }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .carrusel-container { height: 520px; }
+            .card { width: 85%; }
+            .card.prev { transform: translateX(-40%) scale(0.85); opacity: 0.3; }
+            .card.next { transform: translateX(40%) scale(0.85); opacity: 0.3; }
+            
+            .carrusel-btn {
+                width: 45px; height: 45px; font-size: 1.2rem;
+                bottom: -30px; top: auto; transform: none;
+            }
+            .carrusel-btn:hover { transform: scale(1.1); }
+            .btn-prev { left: 20%; }
+            .btn-next { right: 20%; }
+            
+            .card-img-container { height: 180px; } /* Imagen más baja en móviles */
+            .card-body { padding: 15px; }
+            .card-description { font-size: 0.9rem; }
+            .hero h1 { font-size: 2.2rem; }
+            
+            .card-badge {
+                font-size: 1.2rem;
+                padding: 3px 10px;
+                top: 10px; left: 10px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="error-card">
-        <!-- Tu Logo -->
-        <img src="https://sosasoftcuba.github.io/revista_macarencos/imagen/logo_sosasoftcuba.png" alt="SosaSoftCuba" class="error-logo">
-        
-        <!-- Código de error con fuente estándar -->
-        <h1 class="error-code">404</h1>
-        
-        <!-- Mensaje -->
-        <h2 class="error-title">Página no encontrada</h2>
-        <p class="error-desc">
-            La página que buscas no existe o ha sido movida. Regresa a la portada para seguir leyendo.
+    <header class="hero">
+        <h1>Proyecto <span>SosaSoftCuba</span></h1>
+        <p>
+            Iniciativa <strong>sin fines de lucro</strong> creando herramientas digitales y colaborando con docentes, escuelas y universidades.
         </p>
+    </header>
+
+    <section class="carrusel-section">
+        <h2 class="section-title">Nuestros Proyectos</h2>
         
-        <!-- Botón grande para dedos en móviles (usando flecha unicode en lugar de FontAwesome) -->
-        <a href="https://sosasoftcuba.github.io/revista_macarencos/" class="btn-home">
-            ← Volver al Inicio
-        </a>
+        <div class="carrusel-container" id="carrusel">
+            
+            <button class="carrusel-btn btn-prev" id="btn-prev">&#10094;</button>
+            
+            <!-- TARJETA 1 -->
+            <article class="card active">
+                <div class="card-header">Revista Macarenco</div>
+                <div class="card-img-container">
+                    <span class="card-badge">01 / 06</span>
+                    <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Revista" class="card-image">
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Revista informativa digital de la Asociación de Pedagogos de Cuba (Filial Santiago). Espacio para el pensamiento pedagógico.</p>
+                    <a href="https://sosasoftcuba.github.io/revista_macarencos/" target="_blank" class="btn-visitar">Visitar Revista</a>
+                </div>
+            </article>
 
-        <div class="credits">
-            <strong>SosaSoftCuba</strong> / Asociación de Pedagogos de Cuba / 2026
+            <!-- TARJETA 2 -->
+            <article class="card">
+                <div class="card-header">Juegos Didácticos</div>
+                <div class="card-img-container">
+                    <span class="card-badge">02 / 06</span>
+                    <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Juegos" class="card-image">
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Plataforma interactiva con recursos lúdicos y juegos diseñados para apoyar el proceso de enseñanza-aprendizaje en las aulas.</p>
+                    <a href="https://sosasoftcuba.github.io/juegos_didacticos/" target="_blank" class="btn-visitar">Jugar y Aprender</a>
+                </div>
+            </article>
+
+            <!-- TARJETA 3 -->
+            <article class="card">
+                <div class="card-header">Base Consultora UO</div>
+                <div class="card-img-container">
+                    <span class="card-badge">03 / 06</span>
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Consultora" class="card-image">
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Sistema de gestión y base de datos de consultoría para la Universidad de Oriente. Facilita el acceso a información especializada.</p>
+                    <a href="https://sosasoftcuba.github.io/base_consultora_uo/" target="_blank" class="btn-visitar">Acceder a la Base</a>
+                </div>
+            </article>
+
+            <!-- TARJETA 4 -->
+            <article class="card">
+                <div class="card-header">SosaSoftCuba (Portal)</div>
+                <div class="card-img-container">
+                    <span class="card-badge">04 / 06</span>
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Portal" class="card-image">
+                </div>
+                <div class="card-body">
+                    <p class="card-description">El sitio web oficial y punto de encuentro central del proyecto SosaSoftCuba. Conoce nuestra misión y accede a todas las iniciativas.</p>
+                    <a href="https://sosasoftcuba.github.io/" target="_blank" class="btn-visitar">Ir al Portal</a>
+                </div>
+            </article>
+
+            <!-- TARJETA 5 -->
+            <article class="card">
+                <div class="card-header">Cuba Plaza</div>
+                <div class="card-img-container">
+                    <span class="card-badge">05 / 06</span>
+                    <img src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Plaza" class="card-image">
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Portal digital de servicios y punto de encuentro para la comunidad. Una plataforma que conecta usuarios y promueve el desarrollo local.</p>
+                    <a href="http://www.cubaplaza.net" target="_blank" class="btn-visitar">Visitar Cuba Plaza</a>
+                </div>
+            </article>
+
+            <!-- TARJETA 6 -->
+            <article class="card">
+                <div class="card-header">Coffee Rock</div>
+                <div class="card-img-container">
+                    <span class="card-badge">06 / 06</span>
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Rock" class="card-image">
+                </div>
+                <div class="card-body">
+                    <p class="card-description">Espacio digital que fusiona la cultura, la música y el buen café. Un proyecto que promueve la creación local y el encuentro social.</p>
+                    <a href="http://www.cofeerockd.net" target="_blank" class="btn-visitar">Visitar Coffee Rock</a>
+                </div>
+            </article>
+
+            <button class="carrusel-btn btn-next" id="btn-next">&#10095;</button>
         </div>
-    </div>
+    </section>
 
+    <footer>
+        <p>&copy; 2026 <strong>SosaSoftCuba</strong> · Proyecto sin fines de lucro.</p>
+    </footer>
+
+    <!-- JavaScript para el Carrusel 3D -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            const btnPrev = document.getElementById('btn-prev');
+            const btnNext = document.getElementById('btn-next');
+            let currentIndex = 0;
+            let autoplayInterval;
+
+            function updateClasses() {
+                cards.forEach((card, index) => {
+                    card.classList.remove('active', 'prev', 'next', 'hidden');
+
+                    if (index === currentIndex) {
+                        card.classList.add('active');
+                    } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
+                        card.classList.add('prev');
+                    } else if (index === (currentIndex + 1) % cards.length) {
+                        card.classList.add('next');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            }
+
+            function nextCard() {
+                currentIndex = (currentIndex + 1) % cards.length;
+                updateClasses();
+            }
+
+            function prevCard() {
+                currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                updateClasses();
+            }
+
+            function startAutoplay() {
+                autoplayInterval = setInterval(nextCard, 10000);
+            }
+
+            function stopAutoplay() {
+                clearInterval(autoplayInterval);
+            }
+
+            btnNext.addEventListener('click', () => {
+                nextCard();
+                stopAutoplay();
+                startAutoplay();
+            });
+
+            btnPrev.addEventListener('click', () => {
+                prevCard();
+                stopAutoplay();
+                startAutoplay();
+            });
+
+            const container = document.getElementById('carrusel');
+            container.addEventListener('mouseenter', stopAutoplay);
+            container.addEventListener('mouseleave', startAutoplay);
+            container.addEventListener('touchstart', stopAutoplay);
+            container.addEventListener('touchend', startAutoplay);
+
+            updateClasses();
+            startAutoplay();
+        });
+    </script>
 </body>
 </html>
