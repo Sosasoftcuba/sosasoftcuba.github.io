@@ -31,7 +31,7 @@
     <meta name="theme-color" content="#FFD400">
 
 	 <!-- FAVICON -->
-    <link rel="icon" type="image/png" href="https://sosasoftcuba.github.io/revista_macarencos/imagen/logo_sosasoftcuba.png">
+    <link rel="icon" type="image/png" href="https://sosasoftcuba.github.io/imagen/logo_sosasoftcuba.png">
 	
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,8 +56,8 @@
             --blanco: #f5f5f7;
             --gris-texto: #9a9aa3;
             --borde: #26262e;
-            /* Intervalo del autoplay (ms) */
-            --autoplay-interval: 4500ms;
+            /* Velocidad del carrusel continuo (píxeles por segundo) */
+            --marquee-speed: 34;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -217,19 +217,16 @@
 
 
         /* =========================================
-           CARRUSEL (estilo Macarenco adaptado)
-           - Botones circulares prev/next a los lados
-           - Scroll horizontal con snap
-           - Efecto "peek": tarjeta centrada + slivers
-             de la anterior y la siguiente
-           - Autoplay con pausa en hover/touch
+           CARRUSEL CONTINUO (estilo caballitos)
+           - Se mueve solo lentamente, en bucle
+           - Pausa al hover / touch
+           - Botones prev/next siguen funcionando
         ========================================= */
 
         .carousel-container {
             position: relative;
             max-width: 1180px;
             margin: 0 auto;
-            /* Espacio para que los botones no se solapen */
             padding: 0 70px;
         }
 
@@ -273,18 +270,20 @@
         .carousel-btn.next { right: 8px; }
 
 
-        /* Track: scroll horizontal con snap + scrollbar oculto */
+        /* Track: scroll horizontal SIN snap para permitir avance continuo */
         .carousel-track {
             display: flex;
             gap: 28px;
             overflow-x: auto;
             overflow-y: hidden;
             padding: 24px 4px 28px;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
+            scroll-snap-type: none;
+            scroll-behavior: auto;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
             -ms-overflow-style: none;
+            /* Evita selección de texto al arrastrar */
+            user-select: none;
         }
 
         .carousel-track::-webkit-scrollbar { display: none; }
@@ -296,8 +295,7 @@
 
         .card {
             position: relative;
-            flex: 0 0 540px;     /* ancho fijo, igual para todas */
-            scroll-snap-align: center;
+            flex: 0 0 540px;
             height: 520px;
             background: var(--negro-tarjeta);
             border: 1px solid var(--borde);
@@ -311,15 +309,13 @@
             will-change: transform;
         }
 
-        /* El ancho cae al 80% del viewport en pantallas medianas/chicas */
         @media (max-width: 768px) {
             .card { flex: 0 0 82vw; }
         }
 
-        /* Hover: agrandado sutil, sin romper el snap */
+        /* Hover: brillo sutil SIN escala (para no romper el flujo continuo) */
         @media (hover: hover) and (pointer: fine) {
             .card:hover {
-                transform: translateY(-6px) scale(1.025);
                 border-color: var(--amarillo);
                 box-shadow:
                     0 0 0 1px var(--amarillo),
@@ -354,7 +350,6 @@
             letter-spacing: 0.6px;
         }
 
-        /* Imagen SIEMPRE completa, sin deformarse */
         .card-img-container {
             position: relative;
             width: 100%;
@@ -388,11 +383,11 @@
             display: block;
             transition: transform 0.5s ease, filter 0.5s ease;
             filter: saturate(0.92);
+            pointer-events: none;
         }
 
         @media (hover: hover) and (pointer: fine) {
             .card:hover .card-image {
-                transform: scale(1.04);
                 filter: saturate(1.05);
             }
         }
@@ -471,7 +466,7 @@
 
 
         /* =========================================
-           INDICADORES (puntos) - opcional
+           INDICADORES (puntos)
         ========================================= */
 
         .carousel-dots {
@@ -636,9 +631,7 @@
             .carousel-btn.prev { left: 2px; }
             .carousel-btn.next { right: 2px; }
 
-            .card {
-                height: 470px;
-            }
+            .card { height: 470px; }
 
             .card-img-container { height: 190px; }
             .card-title { font-size: 1rem; }
@@ -661,9 +654,7 @@
                 font-size: 0.85rem;
             }
 
-            .card {
-                height: 450px;
-            }
+            .card { height: 450px; }
 
             .card-img-container { height: 165px; }
             .card-body { padding: 14px; }
@@ -681,8 +672,6 @@
             .nfs-bar::before,
             .hero::before,
             footer .nfs-mini { animation: none; }
-
-            .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         }
     </style>
 </head>
@@ -715,7 +704,7 @@
                 </p>
             </div>
 
-            <!-- Contenedor del carrusel: botones + track scroll-snap -->
+            <!-- Contenedor del carrusel: botones + track scroll continuo -->
             <div class="carousel-container">
 
                 <button class="carousel-btn prev" id="btn-prev" aria-label="Anterior">
@@ -908,13 +897,12 @@
 
     <script>
         /* =========================================
-           CARRUSEL — estilo Macarenco adaptado
-           - Botones prev/next: avanzan una tarjeta
-           - Autoplay: cada --autoplay-interval, avanza
-           - Pausa: en hover (mouse) o touchstart (móvil)
-           - Loop: al llegar al final, vuelve al inicio
-           - Indicadores (puntos) generados por JS
-           - Sin tarjetas duplicadas en el HTML
+           CARRUSEL CONTINUO — estilo caballitos de parque
+           - Se mueve solo, lento y constante (requestAnimationFrame)
+           - Loop infinito: al llegar al final, salta al inicio
+           - Pausa al hover / touch / focus de botón
+           - Botones prev/next siguen funcionando
+           - Indicadores (puntos) reflejan la tarjeta más centrada
         ========================================= */
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -925,28 +913,155 @@
             if (!track) return;
 
             const cards   = Array.from(track.querySelectorAll('.card'));
-            const nCards  = cards.length;
             const reduceMotion =
                 window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const INTERVAL = 4500;
-            let autoTimer = null;
-            let isHovering = false;
 
-            /* --- Ancho de un paso (tarjeta + gap) --- */
+            /* Velocidad en px/segundo (leída de la variable CSS si existe) */
+            const cssSpeed = parseFloat(
+                getComputedStyle(document.documentElement)
+                    .getPropertyValue('--marquee-speed')
+            );
+            const SPEED = isNaN(cssSpeed) ? 34 : cssSpeed; // px/seg
+
+            let paused     = false;   // pausa por hover/touch/foco
+            let lastTime   = null;    // para el delta de tiempo
+            let rafId      = null;
+
+            /* ---------- Animación continua ---------- */
+            function tick(now) {
+                if (lastTime === null) lastTime = now;
+                const dt = (now - lastTime) / 1000; // segundos
+                lastTime = now;
+
+                if (!paused && !reduceMotion) {
+                    const maxScroll = track.scrollWidth - track.clientWidth;
+                    let next = track.scrollLeft + SPEED * dt;
+
+                    /* Loop infinito: al pasar del final, volvemos al inicio */
+                    if (next >= maxScroll) {
+                        next = 0;
+                    }
+                    track.scrollLeft = next;
+                }
+
+                updateActiveDot();
+                rafId = requestAnimationFrame(tick);
+            }
+
+            function startLoop() {
+                if (rafId) cancelAnimationFrame(rafId);
+                lastTime = null;
+                rafId = requestAnimationFrame(tick);
+            }
+
+            /* ---------- Pausar / reanudar ---------- */
+            function pause()   { paused = true;  }
+            function resume()  { paused = false; lastTime = null; }
+
+            track.addEventListener('mouseenter', pause);
+            track.addEventListener('mouseleave', resume);
+
+            track.addEventListener('touchstart', pause,  { passive: true });
+            track.addEventListener('touchend',   resume, { passive: true });
+            track.addEventListener('touchcancel',resume, { passive: true });
+
+            /* También pausa si el usuario enfoca un botón dentro (accesibilidad) */
+            track.addEventListener('focusin',  pause);
+            track.addEventListener('focusout', resume);
+
+            /* ---------- Botones prev/next ---------- */
             function getStep() {
                 const card = cards[0];
                 if (!card) return 0;
-                const style = getComputedStyle(track);
-                const gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+                const gap = parseFloat(getComputedStyle(track).columnGap || 0) || 0;
                 return card.offsetWidth + gap;
             }
 
-            /* --- Avanza una tarjeta (con loop) --- */
-            function scrollNext() {
+            function scrollByStep(dir) {
                 const step = getStep();
                 if (!step) return;
-                /* Si llegamos al final (o casi), volvemos al inicio */
-                if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 8) {
-                    track.scrollTo({ left: 0, behavior: smoothBehavior() });
+                const maxScroll = track.scrollWidth - track.clientWidth;
+
+                if (dir > 0) {
+                    if (track.scrollLeft >= maxScroll - 4) {
+                        track.scrollTo({ left: 0, behavior: 'smooth' });
+                    } else {
+                        track.scrollBy({ left: step, behavior: 'smooth' });
+                    }
                 } else {
-                    track.scrollBy({ left
+                    if (track.scrollLeft <= 4) {
+                        track.scrollTo({ left: maxScroll, behavior: 'smooth' });
+                    } else {
+                        track.scrollBy({ left: -step, behavior: 'smooth' });
+                    }
+                }
+            }
+
+            btnNext && btnNext.addEventListener('click', () => scrollByStep(1));
+            btnPrev && btnPrev.addEventListener('click', () => scrollByStep(-1));
+
+            /* ---------- Indicadores (puntos) ---------- */
+            function buildDots() {
+                if (!dotsWrap) return;
+                dotsWrap.innerHTML = '';
+                cards.forEach(function (_, i) {
+                    const li = document.createElement('li');
+                    const b  = document.createElement('button');
+                    b.type = 'button';
+                    b.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
+                    b.addEventListener('click', function () {
+                        cards[i].scrollIntoView({
+                            behavior: 'smooth',
+                            inline: 'center',
+                            block: 'nearest'
+                        });
+                    });
+                    li.appendChild(b);
+                    dotsWrap.appendChild(li);
+                });
+            }
+
+            function updateActiveDot() {
+                if (!dotsWrap) return;
+                const dots = dotsWrap.querySelectorAll('button');
+                const center = track.scrollLeft + track.clientWidth / 2;
+                let nearestIdx = 0;
+                let nearestDist = Infinity;
+
+                cards.forEach(function (c, i) {
+                    const cCenter = c.offsetLeft + c.offsetWidth / 2;
+                    const d = Math.abs(cCenter - center);
+                    if (d < nearestDist) {
+                        nearestDist = d;
+                        nearestIdx = i;
+                    }
+                });
+                dots.forEach(function (d, i) {
+                    d.classList.toggle('active', i === nearestIdx);
+                });
+            }
+
+            /* ---------- Teclado ---------- */
+            track.setAttribute('tabindex', '0');
+            track.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight') { scrollByStep(1); }
+                else if (e.key === 'ArrowLeft') { scrollByStep(-1); }
+            });
+
+            /* ---------- Init ---------- */
+            buildDots();
+            updateActiveDot();
+            startLoop();
+
+            /* Si el usuario arrastra manualmente, no salta al inicio de golpe */
+            let userDragging = false;
+            track.addEventListener('pointerdown', () => { userDragging = true;  pause(); });
+            window.addEventListener('pointerup',   () => { userDragging = false; resume(); });
+
+            /* Recalcular al cambiar tamaño */
+            window.addEventListener('resize', updateActiveDot);
+        });
+    </script>
+
+</body>
+</html>
