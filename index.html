@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,7 +8,11 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome (iconos de botones del carrusel) -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <style>
         /* =========================================
@@ -17,448 +20,541 @@
         ========================================= */
 
         :root {
-            --negro-fondo: #0a0a0a;
-            --negro-tarjeta: #111111;
-            --amarillo: #FFD700;
+            --negro-fondo: #07070a;
+            --negro-tarjeta: #121217;
+            --negro-tarjeta-alt: #16161c;
+            --amarillo: #FFD400;
+            --amarillo-soft: rgba(255, 212, 0, 0.55);
             --rojo: #E53935;
-            --blanco: #ffffff;
-            --gris-texto: #a0a0a0;
+            --blanco: #f5f5f7;
+            --gris-texto: #9a9aa3;
+            --borde: #26262e;
+            /* Intervalo del autoplay (ms) */
+            --autoplay-interval: 4500ms;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Poppins', sans-serif;
-
             background-color: var(--negro-fondo);
-
             background-image:
-                linear-gradient(rgba(255, 215, 0, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 215, 0, 0.05) 1px, transparent 1px);
-
-            background-size: 30px 30px;
-
+                radial-gradient(circle at 12% 0%, rgba(255, 212, 0, 0.06), transparent 45%),
+                radial-gradient(circle at 88% 12%, rgba(229, 57, 53, 0.07), transparent 45%),
+                linear-gradient(rgba(255, 212, 0, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 212, 0, 0.035) 1px, transparent 1px);
+            background-size: auto, auto, 32px 32px;
             color: var(--blanco);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
+        ::selection { background: var(--amarillo); color: var(--negro-fondo); }
+
 
         /* =========================================
-           BANNER PRINCIPAL
+           BARRA NFS SUPERIOR (acento gamer sutil)
+        ========================================= */
+
+        .nfs-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--negro-fondo);
+            z-index: 100;
+            overflow: hidden;
+        }
+
+        .nfs-bar::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                115deg,
+                var(--amarillo) 0,
+                var(--amarillo) 14px,
+                transparent 14px,
+                transparent 30px
+            );
+            transform: translateX(-30%);
+            animation: nfs-flow 3.2s linear infinite;
+        }
+
+        @keyframes nfs-flow {
+            from { transform: translateX(-30%); }
+            to   { transform: translateX(0%); }
+        }
+
+
+        /* =========================================
+           HERO / ENCABEZADO
         ========================================= */
 
         .hero {
             position: relative;
-
-            background: linear-gradient(
-                135deg,
-                rgba(0,0,0,0.95) 0%,
-                rgba(229,57,53,0.4) 100%
-            );
-
-            padding: 55px 20px;
+            padding: 70px 20px 50px;
             text-align: center;
+            overflow: hidden;
+            border-bottom: 1px solid var(--borde);
+        }
 
-            border-bottom: 5px solid var(--amarillo);
+        .hero::before {
+            content: '';
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            height: 6px;
+            background: repeating-linear-gradient(
+                115deg,
+                var(--amarillo) 0,
+                var(--amarillo) 12px,
+                transparent 12px,
+                transparent 26px
+            );
+            opacity: 0.85;
+            animation: nfs-flow 2.8s linear infinite;
+        }
 
-            border-image:
-                repeating-linear-gradient(
-                    45deg,
-                    var(--amarillo),
-                    var(--amarillo) 10px,
-                    transparent 10px,
-                    transparent 20px
-                ) 5;
+        .hero-tag {
+            display: inline-block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--amarillo);
+            padding: 6px 16px;
+            border: 1px solid rgba(255, 212, 0, 0.4);
+            border-radius: 30px;
+            margin-bottom: 22px;
+            background: rgba(255, 212, 0, 0.05);
         }
 
         .hero h1 {
             font-family: 'Oswald', sans-serif;
-            font-size: 3.5rem;
+            font-size: clamp(2.2rem, 6vw, 4rem);
             font-weight: 700;
-            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            text-shadow: 0 0 24px rgba(255, 212, 0, 0.18);
         }
 
-        .hero h1 span {
-            color: var(--amarillo);
-        }
+        .hero h1 span { color: var(--amarillo); }
 
         .hero p {
-            font-size: 1.1rem;
-            max-width: 800px;
+            font-size: clamp(0.95rem, 1.6vw, 1.12rem);
+            max-width: 760px;
             margin: 0 auto;
-
-            color: var(--blanco);
-            background: rgba(0, 0, 0, 0.7);
-
-            padding: 15px;
-
-            border-left: 5px solid var(--rojo);
-            border-radius: 0 10px 10px 0;
-
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            color: var(--gris-texto);
+            font-weight: 300;
         }
+
+        .hero p strong { color: var(--blanco); font-weight: 500; }
 
 
         /* =========================================
-           SECCIÓN DEL CARRUSEL
+           SECCIÓN GALERÍA
         ========================================= */
 
-        .carrusel-section {
-            padding: 55px 20px;
-            max-width: 1100px;
-            margin: 0 auto;
+        .galeria-section {
             position: relative;
+            padding: 60px 0 70px;
+        }
+
+        .section-head {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 38px;
+            padding: 0 20px;
         }
 
         .section-title {
-            text-align: center;
-
             font-family: 'Oswald', sans-serif;
-            font-size: 2.2rem;
-
-            color: var(--amarillo);
-
-            margin-bottom: 35px;
-
+            font-size: clamp(1.6rem, 3.4vw, 2.4rem);
+            color: var(--blanco);
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
 
-            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        .section-title em { color: var(--amarillo); font-style: normal; }
+
+        .section-sub {
+            color: var(--gris-texto);
+            font-size: 0.96rem;
+            font-weight: 300;
         }
 
 
         /* =========================================
-           CONTENEDOR
+           CARRUSEL (estilo Macarenco adaptado)
+           - Botones circulares prev/next a los lados
+           - Scroll horizontal con snap
+           - Efecto "peek": tarjeta centrada + slivers
+             de la anterior y la siguiente
+           - Autoplay con pausa en hover/touch
         ========================================= */
 
-        .carrusel-container {
+        .carousel-container {
             position: relative;
+            max-width: 1180px;
+            margin: 0 auto;
+            /* Espacio para que los botones no se solapen */
+            padding: 0 70px;
+        }
 
-            width: 100%;
-            height: 600px;
-
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 58px;
+            height: 58px;
+            background: var(--negro-fondo);
+            color: var(--amarillo);
+            border: 2px solid var(--amarillo);
+            border-radius: 50%;
+            font-size: 1.4rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow:
+                0 4px 14px rgba(0, 0, 0, 0.6),
+                0 0 18px rgba(255, 212, 0, 0.18);
+            transition: transform 0.25s ease, background 0.25s ease,
+                        color 0.25s ease, box-shadow 0.25s ease;
         }
+
+        .carousel-btn:hover,
+        .carousel-btn:focus-visible {
+            background: var(--amarillo);
+            color: var(--negro-fondo);
+            transform: translateY(-50%) scale(1.1);
+            box-shadow:
+                0 6px 20px rgba(0, 0, 0, 0.7),
+                0 0 28px rgba(255, 212, 0, 0.55);
+            outline: none;
+        }
+
+        .carousel-btn:active { transform: translateY(-50%) scale(0.95); }
+
+        .carousel-btn.prev { left: 8px; }
+        .carousel-btn.next { right: 8px; }
+
+
+        /* Track: scroll horizontal con snap + scrollbar oculto */
+        .carousel-track {
+            display: flex;
+            gap: 28px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 24px 4px 28px;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .carousel-track::-webkit-scrollbar { display: none; }
 
 
         /* =========================================
-           TARJETAS
+           TARJETA DE PROYECTO
         ========================================= */
 
         .card {
-            position: absolute;
-
-            width: 65%;
-            height: 540px;
-
-            background-color: var(--negro-tarjeta);
-
-            border-radius: 20px;
+            position: relative;
+            flex: 0 0 540px;     /* ancho fijo, igual para todas */
+            scroll-snap-align: center;
+            height: 520px;
+            background: var(--negro-tarjeta);
+            border: 1px solid var(--borde);
+            border-radius: 14px;
             overflow: hidden;
-
             display: flex;
             flex-direction: column;
+            transition: transform 0.4s cubic-bezier(0.22, 0.75, 0.25, 1),
+                        box-shadow 0.4s ease,
+                        border-color 0.4s ease;
+            will-change: transform;
+        }
 
-            border: 2px solid #333;
+        /* El ancho cae al 80% del viewport en pantallas medianas/chicas */
+        @media (max-width: 768px) {
+            .card { flex: 0 0 82vw; }
+        }
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-
-            opacity: 0;
-            pointer-events: none;
-
-            transform: translateX(0) scale(0.6);
-
-            transition:
-                transform 0.9s cubic-bezier(0.22, 0.75, 0.25, 1),
-                opacity 0.8s ease,
-                filter 0.8s ease,
-                box-shadow 0.4s ease,
-                border-color 0.4s ease;
-
-            will-change: transform, opacity;
+        /* Hover: agrandado sutil, sin romper el snap */
+        @media (hover: hover) and (pointer: fine) {
+            .card:hover {
+                transform: translateY(-6px) scale(1.025);
+                border-color: var(--amarillo);
+                box-shadow:
+                    0 0 0 1px var(--amarillo),
+                    0 22px 50px rgba(0, 0, 0, 0.8),
+                    0 0 45px rgba(255, 212, 0, 0.22);
+                z-index: 5;
+            }
         }
 
         .card-header {
             flex-shrink: 0;
-
-            background-color: var(--rojo);
-            color: var(--blanco);
-
-            padding: 15px;
-
-            text-align: center;
-
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
-            font-size: 1.4rem;
-
-            text-transform: uppercase;
-            letter-spacing: 1px;
-
-            border-bottom: 3px solid var(--amarillo);
+            padding: 14px 16px;
+            background: linear-gradient(180deg, #1a1a20 0%, var(--negro-tarjeta-alt) 100%);
+            border-bottom: 1px solid var(--borde);
+            position: relative;
         }
 
+        .card-header::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--amarillo);
+        }
 
-        /* =========================================
-           IMÁGENES
-        ========================================= */
+        .card-title {
+            font-family: 'Oswald', sans-serif;
+            font-weight: 600;
+            font-size: 1.12rem;
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
 
+        /* Imagen SIEMPRE completa, sin deformarse */
         .card-img-container {
             position: relative;
-
             width: 100%;
-            height: 250px;
-
+            height: 230px;
             flex-shrink: 0;
-
             overflow: hidden;
-
-            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
-        }
-
-        .card-image {
-            width: 100%;
-            height: 100%;
-
-            object-fit: cover;
-            object-position: center;
-
-            display: block;
-
-            transition: transform 0.8s ease;
-        }
-
-        /* Zoom de imagen al pasar el ratón */
-
-        @media (hover: hover) and (pointer: fine) {
-            .card.active:hover .card-image {
-                transform: scale(1.12);
-            }
-        }
-
-
-        /* =========================================
-           IDENTIFICADOR NUMÉRICO
-        ========================================= */
-
-        .card-badge {
-            position: absolute;
-
-            top: 15px;
-            left: 15px;
-
-            background-color: var(--rojo);
-            color: var(--blanco);
-
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-
-            padding: 5px 15px;
-
-            border-radius: 8px;
-            border: 2px solid var(--amarillo);
-
-            box-shadow: 0 4px 10px rgba(0,0,0,0.6);
-
-            z-index: 10;
-            letter-spacing: 1px;
-        }
-
-
-        /* =========================================
-           CUERPO DE LAS TARJETAS
-        ========================================= */
-
-.card-body {
-    padding: 22px 22px 35px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex-grow: 1;
-    min-height: 0;
-    overflow-y: auto;
-    gap: 22px;
-}
-
-.card-description {
-    color: var(--gris-texto);
-    font-size: 0.95rem;
-    line-height: 1.75;
-    margin: 0;
-    padding: 0 0 15px 0;
-    text-align: justify;
-}
-
-
-        /* =========================================
-           BOTÓN VISITAR
-        ========================================= */
-
-        .btn-visitar {
-            display: block;
-            flex-shrink: 0;
-
-            text-align: center;
-
-            background-color: transparent;
-            color: var(--amarillo);
-
-            border: 2px solid var(--amarillo);
-
-            padding: 12px 20px;
-
-            text-decoration: none;
-
-            font-weight: 600;
-            font-size: 1rem;
-
-            border-radius: 8px;
-
-            transition: all 0.3s;
-
-            width: 100%;
-
-            text-transform: uppercase;
-            letter-spacing: 1px;
-			
-			margin-top: auto;
-            flex-shrink: 0;
-			
-        }
-
-        .btn-visitar:hover {
-            background-color: var(--amarillo);
-            color: var(--negro-fondo);
-
-            box-shadow: 0 0 15px var(--amarillo);
-        }
-
-
-        /* =========================================
-           ESTADOS DEL CARRUSEL
-        ========================================= */
-
-        .card.active {
-            opacity: 1;
-            pointer-events: auto;
-
-            z-index: 10;
-
-            transform: translateX(0) scale(1);
-
-            border-color: var(--amarillo);
-
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
-        }
-
-        .card.prev {
-            opacity: 0.5;
-            z-index: 5;
-
-            transform: translateX(-60%) scale(0.8);
-
-            filter: grayscale(80%);
-        }
-
-        .card.next {
-            opacity: 0.5;
-            z-index: 5;
-
-            transform: translateX(60%) scale(0.8);
-
-            filter: grayscale(80%);
-        }
-
-        .card.hidden {
-            opacity: 0;
-            z-index: 1;
-
-            transform: translateX(0) scale(0.6);
-        }
-
-
-        /* =========================================
-           EFECTO DE AMPLIACIÓN CON EL RATÓN
-        ========================================= */
-
-        @media (hover: hover) and (pointer: fine) {
-
-            .card.active:hover {
-                transform: translateX(0) scale(1.045);
-
-                z-index: 15;
-
-                border-color: var(--amarillo);
-
-                box-shadow:
-                    0 0 38px rgba(255, 215, 0, 0.4),
-                    0 12px 35px rgba(0,0,0,0.8);
-            }
-
-        }
-
-
-        /* =========================================
-           BOTONES DE NAVEGACIÓN
-        ========================================= */
-
-        .carrusel-btn {
-            position: absolute;
-
-            top: 50%;
-            transform: translateY(-50%);
-
-            background-color: var(--negro-tarjeta);
-            color: var(--amarillo);
-
-            border: 2px solid var(--amarillo);
-
-            width: 55px;
-            height: 55px;
-
-            border-radius: 50%;
-
-            font-size: 1.6rem;
-            cursor: pointer;
-
-            z-index: 20;
-
+            background:
+                radial-gradient(circle at 50% 35%, rgba(255,212,0,0.06), transparent 60%),
+                linear-gradient(180deg, #0c0c10 0%, #15151b 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-
-            transition: all 0.3s;
+            border-bottom: 1px solid var(--borde);
         }
 
-        .carrusel-btn:hover {
-            background-color: var(--amarillo);
+        .card-img-container::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 70%, rgba(7,7,10,0.55) 100%);
+            pointer-events: none;
+        }
+
+        .card-image {
+            max-width: 92%;
+            max-height: 92%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            object-position: center;
+            display: block;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: saturate(0.92);
+        }
+
+        @media (hover: hover) and (pointer: fine) {
+            .card:hover .card-image {
+                transform: scale(1.04);
+                filter: saturate(1.05);
+            }
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--amarillo);
+            background: rgba(7, 7, 10, 0.78);
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 212, 0, 0.35);
+            z-index: 5;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-body {
+            flex-grow: 1;
+            padding: 16px 18px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 0;
+        }
+
+        .card-description {
+            color: var(--gris-texto);
+            font-size: 0.88rem;
+            line-height: 1.65;
+            text-align: justify;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .btn-visitar {
+            display: block;
+            text-align: center;
+            background: transparent;
+            color: var(--amarillo);
+            border: 1px solid var(--amarillo);
+            padding: 10px 16px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.82rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-visitar::before {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,212,0,0.35), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-visitar:hover {
+            background: var(--amarillo);
             color: var(--negro-fondo);
-
-            box-shadow: 0 0 25px var(--amarillo);
-
-            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 0 18px rgba(255, 212, 0, 0.45);
         }
 
-        .btn-prev {
-            left: 0;
+        .btn-visitar:hover::before { left: 100%; }
+
+
+        /* =========================================
+           INDICADORES (puntos) - opcional
+        ========================================= */
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 22px auto 0;
+            list-style: none;
+            padding: 0;
         }
 
-        .btn-next {
-            right: 0;
+        .carousel-dots button {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: none;
+            background: var(--borde);
+            cursor: pointer;
+            padding: 0;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dots button.active {
+            background: var(--amarillo);
+            transform: scale(1.4);
+            box-shadow: 0 0 10px rgba(255, 212, 0, 0.6);
+        }
+
+        .carousel-dots button:hover { background: var(--amarillo-soft); }
+
+
+        /* =========================================
+           LLAMADO A PATROCINADORES
+        ========================================= */
+
+        .apoyo {
+            max-width: 920px;
+            margin: 50px auto 0;
+            padding: 0 20px;
+        }
+
+        .apoyo-card {
+            position: relative;
+            background: linear-gradient(135deg, rgba(255,212,0,0.04), rgba(229,57,53,0.04));
+            border: 1px solid var(--borde);
+            border-left: 3px solid var(--amarillo);
+            border-radius: 12px;
+            padding: 26px 28px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            overflow: hidden;
+        }
+
+        .apoyo-card::after {
+            content: '';
+            position: absolute;
+            right: -40px;
+            bottom: -40px;
+            width: 160px;
+            height: 160px;
+            background: repeating-linear-gradient(
+                115deg,
+                rgba(255,212,0,0.08) 0,
+                rgba(255,212,0,0.08) 8px,
+                transparent 8px,
+                transparent 18px
+            );
+            pointer-events: none;
+        }
+
+        .apoyo-text { flex: 1 1 320px; }
+
+        .apoyo-text h3 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.3rem;
+            color: var(--blanco);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+
+        .apoyo-text h3 em { color: var(--amarillo); font-style: normal; }
+
+        .apoyo-text p {
+            color: var(--gris-texto);
+            font-size: 0.92rem;
+            font-weight: 300;
+        }
+
+        .apoyo-btn {
+            display: inline-block;
+            background: var(--amarillo);
+            color: var(--negro-fondo);
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.88rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .apoyo-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(255, 212, 0, 0.35);
         }
 
 
@@ -467,708 +563,487 @@
         ========================================= */
 
         footer {
-            background-color: #050505;
-
+            margin-top: 60px;
+            padding: 30px 20px 36px;
             text-align: center;
-
-            padding: 30px 20px;
-
-            border-top: 2px dashed var(--rojo);
-
+            border-top: 1px solid var(--borde);
             color: var(--gris-texto);
-            font-size: 0.9rem;
-
-            margin-top: 20px;
+            font-size: 0.88rem;
+            background: #050508;
         }
 
-        footer strong {
-            color: var(--amarillo);
-        }
+        footer strong { color: var(--amarillo); }
 
-
-        /* =========================================
-           TABLETS
-        ========================================= */
-
-        @media (max-width: 900px) {
-
-            .carrusel-section {
-                padding: 45px 15px;
-            }
-
-            .carrusel-container {
-                height: 540px;
-            }
-
-            .card {
-                width: 78%;
-                height: 490px;
-            }
-
-            .card.prev {
-                transform: translateX(-48%) scale(0.82);
-                opacity: 0.3;
-            }
-
-            .card.next {
-                transform: translateX(48%) scale(0.82);
-                opacity: 0.3;
-            }
-
-            .card-img-container {
-                height: 200px;
-            }
-
-            .card-body {
-                padding: 17px;
-            }
-
-            .card-description {
-                font-size: 0.9rem;
-            }
-
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-
-            .carrusel-btn {
-                width: 45px;
-                height: 45px;
-                font-size: 1.2rem;
-            }
+        footer .nfs-mini {
+            margin: 14px auto 0;
+            height: 3px;
+            max-width: 260px;
+            background: repeating-linear-gradient(
+                115deg,
+                var(--amarillo) 0,
+                var(--amarillo) 8px,
+                transparent 8px,
+                transparent 20px
+            );
+            opacity: 0.5;
+            animation: nfs-flow 3s linear infinite;
         }
 
 
         /* =========================================
-           MÓVILES
+           RESPONSIVE
         ========================================= */
 
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
 
-            .hero {
-                padding: 35px 15px;
+            .galeria-section { padding: 45px 0 50px; }
+
+            .carousel-container { padding: 0 50px; }
+
+            .carousel-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 1rem;
             }
 
-            .hero h1 {
-                font-size: 2rem;
-                letter-spacing: 1px;
+            .carousel-btn.prev { left: 2px; }
+            .carousel-btn.next { right: 2px; }
+
+            .card {
+                height: 470px;
             }
 
-            .hero p {
-                font-size: 0.9rem;
-                padding: 12px;
-            }
+            .card-img-container { height: 190px; }
+            .card-title { font-size: 1rem; }
+            .card-description { font-size: 0.82rem; }
 
-            .section-title {
-                font-size: 1.8rem;
-                margin-bottom: 20px;
-            }
+            .apoyo-card { padding: 22px; }
+            .apoyo-text h3 { font-size: 1.1rem; }
+        }
 
-            .carrusel-container {
-                height: 490px;
+        @media (max-width: 480px) {
+
+            .hero { padding: 55px 18px 40px; }
+            .hero-tag { font-size: 0.68rem; letter-spacing: 3px; padding: 5px 12px; }
+
+            .carousel-container { padding: 0 38px; }
+
+            .carousel-btn {
+                width: 38px;
+                height: 38px;
+                font-size: 0.85rem;
             }
 
             .card {
-                width: 88%;
                 height: 450px;
             }
 
-            .card.prev {
-                transform: translateX(-65%) scale(0.78);
-                opacity: 0.18;
-            }
-
-            .card.next {
-                transform: translateX(65%) scale(0.78);
-                opacity: 0.18;
-            }
-
-            .card-header {
-                font-size: 1.15rem;
-                padding: 12px;
-            }
-
-            .card-img-container {
-                height: 175px;
-            }
-
-            .card-badge {
-                font-size: 1.1rem;
-                padding: 3px 10px;
-                top: 10px;
-                left: 10px;
-            }
-
-            .card-body {
-                padding: 14px;
-            }
-
-            .card-description {
-                font-size: 0.82rem;
-                line-height: 1.5;
-            }
-
-            .btn-visitar {
-                font-size: 0.85rem;
-                padding: 10px;
-            }
-
-            .carrusel-btn {
-                top: auto;
-                bottom: -25px;
-                transform: none;
-            }
-
-            .carrusel-btn:hover {
-                transform: scale(1.08);
-            }
-
-            .btn-prev {
-                left: 25%;
-            }
-
-            .btn-next {
-                right: 25%;
-            }
+            .card-img-container { height: 165px; }
+            .card-body { padding: 14px; }
         }
 
 
         /* =========================================
-           ACCESIBILIDAD
+           ACCESIBILIDAD: reducir movimiento
         ========================================= */
 
         @media (prefers-reduced-motion: reduce) {
 
-            .card,
-            .card-image {
-                transition-duration: 0.2s;
-            }
+            .carousel-track { scroll-behavior: auto; }
 
+            .nfs-bar::before,
+            .hero::before,
+            footer .nfs-mini { animation: none; }
+
+            .card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
         }
-
     </style>
 </head>
 
 <body>
 
+    <!-- Barra NFS superior (acento gamer sutil) -->
+    <div class="nfs-bar" aria-hidden="true"></div>
+
     <!-- ENCABEZADO -->
-
     <header class="hero">
-
-        <h1>
-            Grupo <span>Sosa·Soft·Cuba</span>
-        </h1>
-
+        <span class="hero-tag">· Portal Digital en GitHub·</span>
+        <h1>Grupo <span>Sosa·Soft·Cuba</span></h1>
         <p>
-            <strong>
-                Creando herramientas digitales y colaborando con docentes,
-                escuelas y universidades por un mundo digital mejor.
-            </strong>
+            <strong>Creando herramientas digitales y colaborando con docentes,
+            escuelas y universidades por un mundo digital mejor. Una vitrina abierta,
+            profesional y sin fines de lucro, al servicio del conocimiento.</strong> 
         </p>
-
     </header>
 
 
-    <!-- CARRUSEL DE PROYECTOS -->
-
+    <!-- GALERÍA / CARRUSEL -->
     <main>
+        <section class="galeria-section" id="galeria">
 
-        <section class="carrusel-section">
+            <div class="section-head">
+                <h2 class="section-title">Nuestros <em>Proyectos</em></h2>
+                <p class="section-sub">
+                    Galeria de Proyectos Colaborativos Destacados.
+                </p>
+            </div>
 
-            <h2 class="section-title">
-                Nuestros Proyectos
-            </h2>
+            <!-- Contenedor del carrusel: botones + track scroll-snap -->
+            <div class="carousel-container">
 
-            <div class="carrusel-container" id="carrusel">
-
-                <button
-                    class="carrusel-btn btn-prev"
-                    id="btn-prev"
-                    aria-label="Proyecto anterior"
-                    type="button"
-                >
-                    &#10094;
+                <button class="carousel-btn prev" id="btn-prev" aria-label="Anterior">
+                    <i class="fas fa-chevron-left"></i>
                 </button>
 
-
-                <!-- PROYECTO 1 -->
-
-                <article class="card active">
-
-                    <div class="card-header">
-                        Revista Macarenco
-                    </div>
-
-                    <div class="card-img-container">
-
-                        <span class="card-badge">01 / 06</span>
-
-                        <img
-                            src="https://sosasoftcuba.github.io/revista_macarencos/imagen/banner-macarencos.png"
-                            alt="Revista Macarencos"
-                            class="card-image"
-                        >
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <p class="card-description">
-                            Revista Digital Informativa de la Asociación
-                            de Pedagogos de Cuba (Filial Santiago de Cuba).
-                            Espacio para el pensamiento pedagógico y
-                            actividades de la Asociación en la provincia
-                            y resto del país.
-							.
-                        </p>
-
-                        <a
-                            href="https://sosasoftcuba.github.io/revista_macarencos/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-visitar"
-                        >
-                            Visitar Revista
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROYECTO 2 -->
-
-                <article class="card">
-
-                    <div class="card-header">
-                        Juegos Didácticos
-                    </div>
-
-                    <div class="card-img-container">
-
-                        <span class="card-badge">02 / 06</span>
-
-                        <img
-                            src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1000&q=80"
-                            alt="Juegos didácticos"
-                            class="card-image"
-                        >
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <p class="card-description">
-                            Plataforma interactiva con recursos lúdicos
-                            y juegos diseñados para apoyar el proceso
-                            de enseñanza-aprendizaje en las aulas.
-							.
-                        </p>
-
-                        <a
-                            href="https://sosasoftcuba.github.io/juegos_didacticos/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-visitar"
-                        >
-                            Jugar y Aprender
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROYECTO 3 -->
-
-                <article class="card">
-
-                    <div class="card-header">
-                        Base Consultora UO
-                    </div>
-
-                    <div class="card-img-container">
-
-                        <span class="card-badge">03 / 06</span>
-
-                        <img
-                            src="https://sosasoftcuba.github.io/revista_macarencos/imagen/consultor.png"
-                            alt="Consultora de tesis"
-                            class="card-image"
-                        >
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <p class="card-description">
-                            La Consultora de Tesis de la Universidad de
-                            Oriente es una plataforma digital diseñada
-                            para facilitar el acceso al
-                            conocimiento científico y académico generado
-                            por la institución.
-
-                            A diferencia de los repositorios tradicionales,
-                            este sistema ha sido diseñado bajo una filosofía
-                            de No Comercialidad, garantizando que el acceso
-                            a la información sea un bien público y gratuito.
-
-                            El repositorio alberga una amplia diversidad
-                            de temas disímiles, abarcando tesis de grado
-                            académico (Maestrías y Doctorados), así como
-                            Materiales Docentes de consulta obligatoria
-                            para los estudiantes.
-							.
-                        </p>
-
-                        <a
-                            href="https://sosasoftcuba.github.io/base_consultora_uo/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-visitar"
-                        >
-                            Acceder a la Base
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROYECTO 4 -->
-
-                <article class="card">
-
-                    <div class="card-header">
-                        SosaSoftCuba (Portal)
-                    </div>
-
-                    <div class="card-img-container">
-
-                        <span class="card-badge">04 / 06</span>
-
-                        <img
-                            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80"
-                            alt="Portal SosaSoftCuba"
-                            class="card-image"
-                        >
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <p class="card-description">
-                            El sitio web oficial y punto de encuentro
-                            central del proyecto SosaSoftCuba.
-                            Conoce nuestra misión y accede a todas
-                            las iniciativas.
-							.
-                        </p>
-
-                        <a
-                            href="https://sosasoftcuba.github.io/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-visitar"
-                        >
-                            Ir al Portal
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROYECTO 5 -->
-
-                <article class="card">
-
-                    <div class="card-header">
-                        Cuba Plaza
-                    </div>
-
-                    <div class="card-img-container">
-
-                        <span class="card-badge">05 / 06</span>
-
-                        <img
-                            src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1000&q=80"
-                            alt="Cuba Plaza"
-                            class="card-image"
-                        >
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <p class="card-description">
-                            Portal digital de servicios y punto de
-                            encuentro para la comunidad. Una plataforma
-                            que conecta usuarios y promueve el
-                            desarrollo local.
-                        </p>
-
-                        <a
-                            href="http://www.cubaplaza.net"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-visitar"
-                        >
-                            Visitar Cuba Plaza
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <!-- PROYECTO 6 -->
-
-                <article class="card">
-
-                    <div class="card-header">
-                        Coffee Rock :D
-                    </div>
-
-                    <div class="card-img-container">
-
-                        <span class="card-badge">06 / 06</span>
-
-                        <img
-                            src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=80"
-                            alt="Coffee Rock"
-                            class="card-image"
-                        >
-
-                    </div>
-
-                    <div class="card-body">
-
-                        <p class="card-description">
-                            Espacio digital que fusiona la cultura,
-                            la música y el buen café. Un proyecto
-                            que promueve la creación local y
-                            el encuentro social.
-                        </p>
-
-                        <a
-                            href="http://www.cofeerockd.net"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="btn-visitar"
-                        >
-                            Visitar Coffee Rock :D
-                        </a>
-
-                    </div>
-
-                </article>
-
-
-                <button
-                    class="carrusel-btn btn-next"
-                    id="btn-next"
-                    aria-label="Proyecto siguiente"
-                    type="button"
-                >
-                    &#10095;
+                <!-- Track: 6 tarjetas reales (sin duplicados en HTML) -->
+                <div class="carousel-track" id="track">
+
+                    <!-- PROYECTO 1 -->
+                    <article class="card">
+                        <div class="card-header"><h3 class="card-title">Revista Macarenco</h3></div>
+                        <div class="card-img-container">
+                            <span class="card-badge">01 / 06</span>
+                            <img
+                                src="https://sosasoftcuba.github.io/revista_macarencos/imagen/banner-macarencos.png"
+                                alt="Revista Macarencos"
+                                class="card-image"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">
+                                Revista Digital Informativa de la Asociación de Pedagogos
+                                de Cuba (Filial Santiago de Cuba). Espacio para el
+                                pensamiento pedagógico y las actividades de la Asociación
+                                en la provincia y el resto del país.
+                            </p>
+                            <a href="https://sosasoftcuba.github.io/revista_macarencos/"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn-visitar">Visitar Revista</a>
+                        </div>
+                    </article>
+
+                    <!-- PROYECTO 2 -->
+                    <article class="card">
+                        <div class="card-header"><h3 class="card-title">Juegos Didácticos</h3></div>
+                        <div class="card-img-container">
+                            <span class="card-badge">02 / 06</span>
+                            <img
+                                src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=1000&q=80"
+                                alt="Juegos didácticos"
+                                class="card-image"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">
+                                Plataforma interactiva con recursos lúdicos y juegos
+                                diseñados para apoyar el proceso de enseñanza-aprendizaje
+                                en las aulas, fusionando formación y entretenimiento.
+                            </p>
+                            <a href="https://sosasoftcuba.github.io/juegos_didacticos/"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn-visitar">Jugar y Aprender</a>
+                        </div>
+                    </article>
+
+                    <!-- PROYECTO 3 -->
+                    <article class="card">
+                        <div class="card-header"><h3 class="card-title">Base Consultora UO</h3></div>
+                        <div class="card-img-container">
+                            <span class="card-badge">03 / 06</span>
+                            <img
+                                src="https://sosasoftcuba.github.io/revista_macarencos/imagen/consultor.png"
+                                alt="Consultora de tesis"
+                                class="card-image"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">
+                                Plataforma digital de la Universidad de Oriente que facilita
+                                el acceso al conocimiento científico y académico. Bajo una
+                                filosofía de No Comercialidad: tesis de Maestría y
+                                Doctorado, y materiales docentes de consulta obligatoria.
+                            </p>
+                            <a href="https://sosasoftcuba.github.io/base_consultora_uo/"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn-visitar">Acceder a la Base</a>
+                        </div>
+                    </article>
+
+                    <!-- PROYECTO 4 -->
+                    <article class="card">
+                        <div class="card-header"><h3 class="card-title">SosaSoftCuba · Portal</h3></div>
+                        <div class="card-img-container">
+                            <span class="card-badge">04 / 06</span>
+                            <img
+                                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80"
+                                alt="Portal SosaSoftCuba"
+                                class="card-image"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">
+                                El sitio web oficial y punto de encuentro central del
+                                proyecto SosaSoftCuba. Conoce nuestra misión y accede a
+                                todas las iniciativas desde un único lugar.
+                            </p>
+                            <a href="https://sosasoftcuba.github.io/"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn-visitar">Ir al Portal</a>
+                        </div>
+                    </article>
+
+                    <!-- PROYECTO 5 -->
+                    <article class="card">
+                        <div class="card-header"><h3 class="card-title">Cuba Plaza</h3></div>
+                        <div class="card-img-container">
+                            <span class="card-badge">05 / 06</span>
+                            <img
+                                src="https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1000&q=80"
+                                alt="Cuba Plaza"
+                                class="card-image"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">
+                                Portal digital de servicios y punto de encuentro para la
+                                comunidad. Una plataforma que conecta usuarios y promueve
+                                el desarrollo local.
+                            </p>
+                            <a href="http://www.cubaplaza.net"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn-visitar">Visitar Cuba Plaza</a>
+                        </div>
+                    </article>
+
+                    <!-- PROYECTO 6 -->
+                    <article class="card">
+                        <div class="card-header"><h3 class="card-title">Coffee Rock</h3></div>
+                        <div class="card-img-container">
+                            <span class="card-badge">06 / 06</span>
+                            <img
+                                src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1000&q=80"
+                                alt="Coffee Rock"
+                                class="card-image"
+                                loading="lazy">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-description">
+                                Espacio digital que fusiona la cultura, la música y el buen
+                                café. Un proyecto que promueve la creación local y el
+                                encuentro social.
+                            </p>
+                            <a href="http://www.cofeerockd.net"
+                               target="_blank" rel="noopener noreferrer"
+                               class="btn-visitar">Visitar Coffee Rock</a>
+                        </div>
+                    </article>
+
+                </div>
+
+                <button class="carousel-btn next" id="btn-next" aria-label="Siguiente">
+                    <i class="fas fa-chevron-right"></i>
                 </button>
+
+                <!-- Indicadores (puntos) generados por JS -->
+                <ul class="carousel-dots" id="dots" aria-hidden="true"></ul>
 
             </div>
 
-        </section>
 
+            <!-- LLAMADO A PATROCINADORES -->
+            <div class="apoyo">
+                <div class="apoyo-card">
+                    <div class="apoyo-text">
+                        <h3>Impulsa el <em>conocimiento libre</em></h3>
+                        <p>
+                            Somos un proyecto sin fines de lucro. Si representas a una
+                            institución, universidad o empresa alineada con la educación y
+                            la cultura digital, colabora con nosotros para llevar más
+                            herramientas gratuitas a más personas.
+                        </p>
+                    </div>
+                    <a href="404.html"
+                       class="apoyo-btn">Quiero Colaborar</a>
+                </div>
+            </div>
+
+        </section>
     </main>
 
 
     <!-- PIE DE PÁGINA -->
-
     <footer>
-
-        <p><strong> · sosasoftcuba@gmail.com</strong><p>
-        <p>&copy; 2026 Todos los derechos reservados        
-            · Proyecto sin fines de lucro.</p>
-
+        <p><strong>sosasoftcuba@gmail.com</strong></p>
+        <p>&copy; 2026 · Proyecto sin fines de lucro · Todos los derechos reservados.</p>
+        <div class="nfs-mini" aria-hidden="true"></div>
     </footer>
 
 
-    <!-- =========================================
-         JAVASCRIPT DEL CARRUSEL
-    ========================================= -->
-
     <script>
-
+        /* =========================================
+           CARRUSEL — estilo Macarenco adaptado
+           - Botones prev/next: avanzan una tarjeta
+           - Autoplay: cada --autoplay-interval, avanza
+           - Pausa: en hover (mouse) o touchstart (móvil)
+           - Loop: al llegar al final, vuelve al inicio
+           - Indicadores (puntos) generados por JS
+           - Sin tarjetas duplicadas en el HTML
+        ========================================= */
         document.addEventListener('DOMContentLoaded', function () {
 
-            const cards = document.querySelectorAll('.card');
+            const track    = document.getElementById('track');
+            const btnNext  = document.getElementById('btn-next');
+            const btnPrev  = document.getElementById('btn-prev');
+            const dotsWrap = document.getElementById('dots');
+            if (!track) return;
 
-            const btnPrev = document.getElementById('btn-prev');
-            const btnNext = document.getElementById('btn-next');
+            const cards   = Array.from(track.querySelectorAll('.card'));
+            const nCards  = cards.length;
+            const reduceMotion =
+                window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const INTERVAL = 4500;
+            let autoTimer = null;
+            let isHovering = false;
 
-            const container = document.getElementById('carrusel');
-
-            let currentIndex = 0;
-            let autoplayInterval = null;
-
-            const tiempoExposicion = 6000;
-
-
-            /* ACTUALIZAR POSICIONES */
-
-            function updateClasses() {
-
-                cards.forEach((card, index) => {
-
-                    card.classList.remove(
-                        'active',
-                        'prev',
-                        'next',
-                        'hidden'
-                    );
-
-                    if (index === currentIndex) {
-
-                        card.classList.add('active');
-
-                    } else if (
-                        index === (currentIndex - 1 + cards.length) % cards.length
-                    ) {
-
-                        card.classList.add('prev');
-
-                    } else if (
-                        index === (currentIndex + 1) % cards.length
-                    ) {
-
-                        card.classList.add('next');
-
-                    } else {
-
-                        card.classList.add('hidden');
-
-                    }
-
-                });
-
+            /* --- Ancho de un paso (tarjeta + gap) --- */
+            function getStep() {
+                const card = cards[0];
+                if (!card) return 0;
+                const style = getComputedStyle(track);
+                const gap = parseFloat(style.columnGap || style.gap || 0) || 0;
+                return card.offsetWidth + gap;
             }
 
-
-            /* SIGUIENTE PROYECTO */
-
-            function nextCard() {
-
-                currentIndex = (currentIndex + 1) % cards.length;
-
-                updateClasses();
-
-            }
-
-
-            /* PROYECTO ANTERIOR */
-
-            function prevCard() {
-
-                currentIndex =
-                    (currentIndex - 1 + cards.length) % cards.length;
-
-                updateClasses();
-
-            }
-
-
-            /* DETENER EXPOSICIÓN */
-
-            function stopAutoplay() {
-
-                if (autoplayInterval !== null) {
-
-                    clearInterval(autoplayInterval);
-
-                    autoplayInterval = null;
-
+            /* --- Avanza una tarjeta (con loop) --- */
+            function scrollNext() {
+                const step = getStep();
+                if (!step) return;
+                /* Si llegamos al final (o casi), volvemos al inicio */
+                if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 8) {
+                    track.scrollTo({ left: 0, behavior: smoothBehavior() });
+                } else {
+                    track.scrollBy({ left: step, behavior: smoothBehavior() });
                 }
-
             }
 
-
-            /* INICIAR EXPOSICIÓN */
-
-            function startAutoplay() {
-
-                stopAutoplay();
-
-                autoplayInterval = setInterval(
-                    nextCard,
-                    tiempoExposicion
-                );
-
+            /* --- Retrocede una tarjeta (con loop) --- */
+            function scrollPrev() {
+                const step = getStep();
+                if (!step) return;
+                if (track.scrollLeft <= 8) {
+                    track.scrollTo({ left: track.scrollWidth, behavior: smoothBehavior() });
+                } else {
+                    track.scrollBy({ left: -step, behavior: smoothBehavior() });
+                }
             }
 
+            function smoothBehavior() {
+                return reduceMotion ? 'auto' : 'smooth';
+            }
 
-            /* BOTÓN SIGUIENTE */
+            /* --- Autoplay --- */
+            function startAuto() {
+                if (reduceMotion) return;
+                stopAuto();
+                autoTimer = setInterval(() => {
+                    if (!isHovering) scrollNext();
+                }, INTERVAL);
+            }
+            function stopAuto() {
+                if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+            }
+            function restartAuto() {
+                stopAuto(); startAuto();
+            }
 
-            btnNext.addEventListener('click', function () {
+            /* --- Indicadores (puntos) --- */
+            function buildDots() {
+                if (!dotsWrap) return;
+                dotsWrap.innerHTML = '';
+                cards.forEach(function (_, i) {
+                    const li = document.createElement('li');
+                    const b  = document.createElement('button');
+                    b.type = 'button';
+                    b.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
+                    b.addEventListener('click', function () {
+                        cards[i].scrollIntoView({
+                            behavior: smoothBehavior(),
+                            inline: 'center',
+                            block: 'nearest'
+                        });
+                        restartAuto();
+                    });
+                    li.appendChild(b);
+                    dotsWrap.appendChild(li);
+                });
+            }
 
-                nextCard();
+            function updateActiveDot() {
+                if (!dotsWrap) return;
+                const dots = dotsWrap.querySelectorAll('button');
+                const center = track.scrollLeft + track.clientWidth / 2;
+                let nearestIdx = 0;
+                let nearestDist = Infinity;
+                cards.forEach(function (c, i) {
+                    const cCenter = c.offsetLeft + c.offsetWidth / 2;
+                    const d = Math.abs(cCenter - center);
+                    if (d < nearestDist) {
+                        nearestDist = d;
+                        nearestIdx = i;
+                    }
+                });
+                dots.forEach(function (d, i) {
+                    d.classList.toggle('active', i === nearestIdx);
+                });
+            }
 
-                startAutoplay();
-
+            /* --- Eventos --- */
+            btnNext && btnNext.addEventListener('click', function () {
+                scrollNext(); restartAuto();
+            });
+            btnPrev && btnPrev.addEventListener('click', function () {
+                scrollPrev(); restartAuto();
             });
 
-
-            /* BOTÓN ANTERIOR */
-
-            btnPrev.addEventListener('click', function () {
-
-                prevCard();
-
-                startAutoplay();
-
+            track.addEventListener('mouseenter', function () {
+                isHovering = true;
+            });
+            track.addEventListener('mouseleave', function () {
+                isHovering = false;
             });
 
-
-            /* DETENER AL ENTRAR CON EL RATÓN */
-
-            container.addEventListener('mouseenter', function () {
-
-                stopAutoplay();
-
-            });
-
-
-            /* REANUDAR AL SALIR CON EL RATÓN */
-
-            container.addEventListener('mouseleave', function () {
-
-                startAutoplay();
-
-            });
-
-
-            /* SOPORTE PARA PANTALLAS TÁCTILES */
-
-            container.addEventListener('touchstart', function () {
-
-                stopAutoplay();
-
+            track.addEventListener('touchstart', function () {
+                isHovering = true;
+            }, { passive: true });
+            track.addEventListener('touchend', function () {
+                isHovering = false;
             }, { passive: true });
 
-
-            container.addEventListener('touchend', function () {
-
-                startAutoplay();
-
+            /* El usuario hizo scroll manual: reactivar autoplay tras parar */
+            let scrollTimer = null;
+            track.addEventListener('scroll', function () {
+                updateActiveDot();
+                if (scrollTimer) clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(function () {
+                    /* scroll terminó */
+                }, 150);
             }, { passive: true });
 
+            /* Teclado: flechas para navegar */
+            track.setAttribute('tabindex', '0');
+            track.addEventListener('keydown', function (e) {
+                if (e.key === 'ArrowRight') { scrollNext(); restartAuto(); }
+                else if (e.key === 'ArrowLeft') { scrollPrev(); restartAuto(); }
+            });
 
-            /* INICIAR */
+            /* Inicializar */
+            buildDots();
+            updateActiveDot();
+            startAuto();
 
-            updateClasses();
-
-            startAutoplay();
-
+            /* Al cambiar el tamaño de ventana, recalcular el dot activo */
+            window.addEventListener('resize', updateActiveDot);
         });
-
     </script>
 
 </body>
