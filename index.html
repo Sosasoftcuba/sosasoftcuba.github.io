@@ -4,7 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SosaSoftCuba · Portal Digital</title>
-     
+
+    <!-- ============================================
+         METAETIQUETAS PARA VISTA PREVIA (Open Graph / Twitter Cards)
+         ============================================ -->
+    <meta property="og:title" content="SosaSoftCuba · Portal Digital">
+    <meta property="og:description" content="Creando herramientas digitales y colaborando con docentes, escuelas y universidades por un mundo digital mejor. Vitrina abierta, profesional y sin fines de lucro.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sosasoftcuba.github.io/">
+    <meta property="og:site_name" content="SosaSoftCuba">
+    <meta property="og:locale" content="es_ES">
+
+    <meta property="og:image" content="https://sosasoftcuba.github.io/imagen/previa-sosasoftcuba-portal.png">
+    <meta property="og:image:secure_url" content="https://sosasoftcuba.github.io/imagen/previa-sosasoftcuba-portal.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="SosaSoftCuba - Portal Digital">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="SosaSoftCuba · Portal Digital">
+    <meta name="twitter:description" content="Herramientas digitales y proyectos colaborativos para docentes, escuelas y universidades. Sin fines de lucro.">
+    <meta name="twitter:image" content="https://sosasoftcuba.github.io/imagen/previa-sosasoftcuba-portal.png">
+    <meta name="twitter:image:alt" content="SosaSoftCuba - Portal Digital">
+
+    <meta name="theme-color" content="#FFD400">
+
 	 <!-- FAVICON -->
     <link rel="icon" type="image/png" href="https://sosasoftcuba.github.io/revista_macarencos/imagen/logo_sosasoftcuba.png">
 	
@@ -924,129 +949,4 @@
                 if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 8) {
                     track.scrollTo({ left: 0, behavior: smoothBehavior() });
                 } else {
-                    track.scrollBy({ left: step, behavior: smoothBehavior() });
-                }
-            }
-
-            /* --- Retrocede una tarjeta (con loop) --- */
-            function scrollPrev() {
-                const step = getStep();
-                if (!step) return;
-                if (track.scrollLeft <= 8) {
-                    track.scrollTo({ left: track.scrollWidth, behavior: smoothBehavior() });
-                } else {
-                    track.scrollBy({ left: -step, behavior: smoothBehavior() });
-                }
-            }
-
-            function smoothBehavior() {
-                return reduceMotion ? 'auto' : 'smooth';
-            }
-
-            /* --- Autoplay --- */
-            function startAuto() {
-                if (reduceMotion) return;
-                stopAuto();
-                autoTimer = setInterval(() => {
-                    if (!isHovering) scrollNext();
-                }, INTERVAL);
-            }
-            function stopAuto() {
-                if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
-            }
-            function restartAuto() {
-                stopAuto(); startAuto();
-            }
-
-            /* --- Indicadores (puntos) --- */
-            function buildDots() {
-                if (!dotsWrap) return;
-                dotsWrap.innerHTML = '';
-                cards.forEach(function (_, i) {
-                    const li = document.createElement('li');
-                    const b  = document.createElement('button');
-                    b.type = 'button';
-                    b.setAttribute('aria-label', 'Ir al proyecto ' + (i + 1));
-                    b.addEventListener('click', function () {
-                        cards[i].scrollIntoView({
-                            behavior: smoothBehavior(),
-                            inline: 'center',
-                            block: 'nearest'
-                        });
-                        restartAuto();
-                    });
-                    li.appendChild(b);
-                    dotsWrap.appendChild(li);
-                });
-            }
-
-            function updateActiveDot() {
-                if (!dotsWrap) return;
-                const dots = dotsWrap.querySelectorAll('button');
-                const center = track.scrollLeft + track.clientWidth / 2;
-                let nearestIdx = 0;
-                let nearestDist = Infinity;
-                cards.forEach(function (c, i) {
-                    const cCenter = c.offsetLeft + c.offsetWidth / 2;
-                    const d = Math.abs(cCenter - center);
-                    if (d < nearestDist) {
-                        nearestDist = d;
-                        nearestIdx = i;
-                    }
-                });
-                dots.forEach(function (d, i) {
-                    d.classList.toggle('active', i === nearestIdx);
-                });
-            }
-
-            /* --- Eventos --- */
-            btnNext && btnNext.addEventListener('click', function () {
-                scrollNext(); restartAuto();
-            });
-            btnPrev && btnPrev.addEventListener('click', function () {
-                scrollPrev(); restartAuto();
-            });
-
-            track.addEventListener('mouseenter', function () {
-                isHovering = true;
-            });
-            track.addEventListener('mouseleave', function () {
-                isHovering = false;
-            });
-
-            track.addEventListener('touchstart', function () {
-                isHovering = true;
-            }, { passive: true });
-            track.addEventListener('touchend', function () {
-                isHovering = false;
-            }, { passive: true });
-
-            /* El usuario hizo scroll manual: reactivar autoplay tras parar */
-            let scrollTimer = null;
-            track.addEventListener('scroll', function () {
-                updateActiveDot();
-                if (scrollTimer) clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(function () {
-                    /* scroll terminó */
-                }, 150);
-            }, { passive: true });
-
-            /* Teclado: flechas para navegar */
-            track.setAttribute('tabindex', '0');
-            track.addEventListener('keydown', function (e) {
-                if (e.key === 'ArrowRight') { scrollNext(); restartAuto(); }
-                else if (e.key === 'ArrowLeft') { scrollPrev(); restartAuto(); }
-            });
-
-            /* Inicializar */
-            buildDots();
-            updateActiveDot();
-            startAuto();
-
-            /* Al cambiar el tamaño de ventana, recalcular el dot activo */
-            window.addEventListener('resize', updateActiveDot);
-        });
-    </script>
-
-</body>
-</html>
+                    track.scrollBy({ left
