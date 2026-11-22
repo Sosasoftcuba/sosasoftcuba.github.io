@@ -28,11 +28,18 @@
     <meta name="twitter:image" content="https://sosasoftcuba.github.io/imagen/previa-sosasoftcuba-portal.png">
     <meta name="twitter:image:alt" content="SosaSoftCuba - Portal Digital">
 
+    <!-- DESCRIPCIÓN PARA NAVEGADORES Y BUSCADORES -->
+    <meta name="description" content="Portal digital del Grupo Sosa·Soft·Cuba: proyectos educativos y culturales sin fines de lucro. Revista Macarenco, juegos didácticos, base consultora de tesis de la Universidad de Oriente, Cuba Plaza y Coffee Rock.">
+    <meta name="author" content="Grupo Sosa·Soft·Cuba">
+
     <meta name="theme-color" content="#FFD400">
 
 	 <!-- FAVICON -->
     <link rel="icon" type="image/png" href="https://sosasoftcuba.github.io/imagen/logo_sosasoftcuba.png">
-	
+
+    <!-- DOCUMENTO PARA ASISTENTES DE IA / AGENTES LLM (estándar llms.txt) -->
+    <link rel="llms" type="text/markdown" href="https://sosasoftcuba.github.io/llms.txt">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -72,7 +79,7 @@
                 radial-gradient(circle at 88% 12%, rgba(229, 57, 53, 0.07), transparent 45%),
                 linear-gradient(rgba(255, 212, 0, 0.035) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255, 212, 0, 0.035) 1px, transparent 1px);
-            background-size: auto, auto, 32px 32px;
+            background-size: auto, auto, 32px 32px, 32px 32px;
             color: var(--blanco);
             line-height: 1.6;
             overflow-x: hidden;
@@ -299,7 +306,7 @@
             flex: 0 0 540px;
             height: 520px;
             background: var(--negro-tarjeta);
-            border: 1px solid var(--borde);
+            border: 2px solid #000;
             border-radius: 14px;
             overflow: hidden;
             display: flex;
@@ -316,13 +323,22 @@
 
         @media (hover: hover) and (pointer: fine) {
             .card:hover {
-                border-color: var(--amarillo);
                 box-shadow:
                     0 0 0 1px var(--amarillo),
                     0 22px 50px rgba(0, 0, 0, 0.8),
-                    0 0 45px rgba(255, 212, 0, 0.22);
+                    0 0 45px rgba(255, 212, 0, 0.28),
+                    0 0 90px rgba(255, 212, 0, 0.14);
                 z-index: 5;
             }
+        }
+
+        /* Resplandor de la ficha al tocarla (táctil / clic), sin alterar el carrusel */
+        .card.glow-touch {
+            box-shadow:
+                0 0 0 1px var(--amarillo),
+                0 0 38px rgba(255, 212, 0, 0.38),
+                0 0 80px rgba(255, 212, 0, 0.18);
+            z-index: 5;
         }
 
         .card-header {
@@ -596,6 +612,59 @@
 
         footer strong { color: var(--amarillo); }
 
+        /* =========================================
+           REDES SOCIALES (blancas, con brillo y zoom al pasar el ratón)
+        ========================================= */
+
+        .redes-titulo {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--gris-texto);
+            margin-bottom: 12px;
+        }
+
+        .redes {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            margin-bottom: 18px;
+        }
+
+        .red {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.18rem;
+            color: var(--blanco);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            text-decoration: none;
+            transition: transform 0.3s cubic-bezier(0.22, 0.75, 0.25, 1),
+                        box-shadow 0.3s ease, background 0.3s ease,
+                        border-color 0.3s ease;
+        }
+
+        .red:hover,
+        .red:focus-visible {
+            transform: scale(1.22) translateY(-3px);
+            background: rgba(255, 255, 255, 0.14);
+            border-color: rgba(255, 255, 255, 0.7);
+            box-shadow:
+                0 0 8px rgba(255, 255, 255, 0.55),
+                0 0 22px rgba(255, 255, 255, 0.30),
+                0 0 46px rgba(255, 212, 0, 0.20);
+            outline: none;
+        }
+
+        .red:active { transform: scale(0.94); }
+
         footer .nfs-mini {
             margin: 14px auto 0;
             height: 3px;
@@ -687,7 +756,7 @@
 
     <!-- ENCABEZADO -->
     <header class="hero">
-        <span class="hero-tag">· Portal Digital en GitHub·</span>
+        <span class="hero-tag">· Portal Digital en GitHub ·</span>
         <h1>Grupo <span>Sosa·Soft·Cuba</span></h1>
         <p>
             <strong>Creando herramientas digitales y colaborando con docentes,
@@ -890,6 +959,27 @@
 
     <!-- PIE DE PÁGINA -->
     <footer>
+        <!-- REDES SOCIALES -->
+        <p class="redes-titulo">Síguenos en</p>
+        <nav class="redes" aria-label="Redes sociales">
+            <!-- SUSTITUYE estos enlaces por las cuentas reales del grupo -->
+            <a class="red" href="https://www.facebook.com/sosasoftcuba.cu"
+               target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+            </a>
+            <a class="red" href="https://www.instagram.com/sosasoftcuba"
+               target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+            </a>
+            <a class="red" href="https://www.youtube.com/@sosasoftcuba"
+               target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i class="fab fa-youtube" aria-hidden="true"></i>
+            </a>
+            <a class="red" href="https://wa.me/53xxxxxxxx"
+               target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            </a>
+        </nav>
         <p><strong>sosasoftcuba@gmail.com</strong></p>
         <p>&copy; 2026 · Proyecto sin fines de lucro · Todos los derechos reservados.</p>
         <div class="nfs-mini" aria-hidden="true"></div>
@@ -916,7 +1006,7 @@
                 getComputedStyle(document.documentElement)
                     .getPropertyValue('--marquee-speed')
             );
-            const SPEED = isNaN(cssSpeed) ? 33 : cssSpeed; // px/seg
+            const SPEED = isNaN(cssSpeed) ? 30 : cssSpeed; // px/seg
 
             let paused     = false;
             let lastTime   = null;
@@ -1044,6 +1134,25 @@
             window.addEventListener('pointerup',   () => { userDragging = false; resume(); });
 
             window.addEventListener('resize', updateActiveDot);
+
+            /* =========================================
+               RESPLANDOR DE LAS FICHAS AL TOCARLAS
+               (independiente de la lógica del carrusel)
+            ========================================= */
+            track.addEventListener('pointerdown', function (e) {
+                const card = e.target.closest('.card');
+                if (!card) return;
+                card.classList.add('glow-touch');
+                clearTimeout(card._glowTimer);
+                card._glowTimer = setTimeout(
+                    function () { card.classList.remove('glow-touch'); }, 700);
+            });
+
+            track.addEventListener('pointerup', function (e) {
+                const card = e.target.closest('.card');
+                if (!card) return;
+                setTimeout(function () { card.classList.remove('glow-touch'); }, 250);
+            });
         });
     </script>
 

@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto · Macarenco — Envía tu artículo a la redacción</title>
+    <meta name="description" content= + descripcion + >
+    <meta name="author" content="Asociación de Pedagogos de Cuba — Filial Santiago de Cuba">
+    <meta name="theme-color" content="#039ed6">
+    <link href="imagen/logo-apc.png" rel="icon" type="image/png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* =====================================================
+           IMPORTANTE: esta página NO depende de internet.
+           Bootstrap, jQuery y Font Awesome fueron sustituidos
+           por CSS y JavaScript propios + iconos SVG inline,
+           para que funcione igual con doble click y sin conexión.
+           Google Fonts es solo una mejora: si no hay internet,
+           se usan fuentes del sistema y el diseño no se rompe.
+           ===================================================== */
+
+        /* CARGAR LA FUENTE 1979 LOCAL */
+        @font-face {
+            font-family: 'Fuente1979';
+            src: url('css/fonts/1979.ttf') format('truetype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+
+        /* VARIABLES Y ESTILOS GENERALES */
+        :root {
+            --azul-cielo: #039ed6;
+            --azul-oscuro: #026892;
+            --azul-fuerte: #0044cc;
+            --blanco: #ffffff;
+            --gris-oscuro: #1a2630;
+            --gris-fondo: #f4f7f9;
+            --rojo-evento: #d32f2f;
+            --dorado-premio: #fbc02d;
+            --grosor-marco: 2px;
+        }
+
+        html, body { margin: 0; padding: 0; height: auto; overflow-x: hidden; overflow-y: auto; }
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 8px;
+            border: var(--grosor-marco) solid var(--azul-fuerte);
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--gris-oscuro);
+            background-color: var(--gris-fondo);
+            line-height: 1.5;
+        }
+
+        img { max-width: 100%; }
+        h1, h2, h3, h4, h5, h6 { margin: 0 0 .5rem; font-weight: 600; line-height: 1.3; }
+        p, ul, ol { margin: 0 0 1rem; }
+        button, input { font-family: inherit; }
+        a { color: var(--azul-fuerte); }
+
+        /* Iconos SVG inline (sustituyen a Font Awesome; heredan el color) */
+        .icon {
+            width: 1em; height: 1em;
+            fill: none; stroke: currentColor;
+            stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+            vertical-align: -0.125em;
+        }
+
+        /* REJILLA PROPIA (sustituye a Bootstrap). Contenedor a 1400px
+           para aprovechar las pantallas grandes. */
+        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
+        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+        .row > [class*="col-"] { width: 100%; padding: 0 15px; }
+
+        .d-flex { display: flex; }
+        .justify-content-between { justify-content: space-between; }
+        .justify-content-center { justify-content: center; }
+        .align-items-center { align-items: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .small { font-size: 80%; }
+        .list-unstyled { list-style: none; padding-left: 0; }
+        .text-muted { color: #777; }
+
+        .mt-2 { margin-top: .5rem !important; }
+        .mt-4 { margin-top: 1.5rem !important; }
+        .mt-5 { margin-top: 3rem !important; }
+        .mb-0 { margin-bottom: 0 !important; }
+        .mb-1 { margin-bottom: .25rem !important; }
+        .mb-4 { margin-bottom: 1.5rem !important; }
+        .mb-5 { margin-bottom: 3rem !important; }
+
+        @media (min-width: 576px) { .mt-sm-0 { margin-top: 0 !important; } }
+        @media (min-width: 768px) {
+            .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+            .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+        }
+        @media (min-width: 992px) {
+            .col-lg-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+            .col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+            .mb-lg-0 { margin-bottom: 0 !important; }
+        }
+
+        /* TOP BAR Y HEADER */
+        .top-bar {
+            background-color: var(--gris-oscuro); color: var(--blanco);
+            font-size: 0.85rem; padding: 8px 0;
+        }
+        .top-bar a { color: var(--blanco); margin-left: 15px; text-decoration: none; }
+        .top-bar a:hover { color: var(--azul-cielo); }
+
+        .main-header {
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-fuerte));
+            padding: 25px 0 30px; border-bottom: 4px solid var(--azul-cielo); position: relative;
+        }
+        .header-box {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border: 3px solid transparent; border-radius: 15px; padding: 22px 18px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .header-brand {
+            display: flex; flex-direction: column; align-items: center;
+            text-decoration: none; color: inherit; width: 100%;
+        }
+
+        /* BANNER CON EL NOMBRE SUPERPUESTO (sin reflejo, estilo póster) */
+        .banner-wrapper {
+            position: relative; display: flex;
+            align-items: center; justify-content: center;
+            margin-bottom: 0; width: 100%; min-height: 110px;
+        }
+        .logo-banner {
+            display: block; position: relative; z-index: 1;
+            width: auto; height: auto; max-width: 100%;
+            max-height: 420px;              /* respaldo para Firefox antiguo */
+            max-height: clamp(220px, 40vw, 420px);
+            object-fit: contain;
+        }
+        .header-title {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Fuente1979', 'Poppins', sans-serif;
+            font-size: 4.5rem;              /* respaldo para Firefox antiguo */
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
+            font-weight: normal; line-height: 1; margin: 0;
+            letter-spacing: 3px; color: var(--blanco);
+        }
+        .header-title span {
+            background: rgba(2, 62, 100, 0.45);
+            -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+            padding: 12px 30px; border-radius: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.55);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            text-shadow:
+                -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
+                -3px 0 0 #000, 3px 0 0 #000, 0 -3px 0 #000, 0 3px 0 #000,
+                -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+                0 0 15px rgba(255, 255, 255, 0.95),
+                0 0 35px rgba(255, 255, 255, 0.65),
+                0 0 60px rgba(255, 255, 255, 0.35);
+        }
+        .header-subtitle {
+            font-family: 'Tahoma', sans-serif; font-size: 1.15rem; font-weight: 700;
+            font-size: clamp(1rem, 2.2vw, 1.35rem);
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            margin-top: 10px; line-height: 1.4; letter-spacing: 1px;
+            max-width: 800px; max-width: min(800px, 100%);
+        }
+        .header-actions {
+            display: flex; align-items: center; justify-content: center;
+            gap: 20px; flex-wrap: wrap; width: 100%; margin-top: 16px;
+        }
+        .search-container {
+            display: flex; align-items: center; border: 2px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 5px; padding: 5px 10px; width: 350px; max-width: 100%;
+        }
+        .search-icon { width: 18px; height: 18px; margin-right: 8px; opacity: 0.6; }
+        .search-container input { border: none; outline: none; font-size: 0.95rem; width: 100%; }
+        .btn-buscar {
+            background-color: var(--azul-fuerte); color: var(--blanco); border: none;
+            padding: 6px 15px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
+            margin-left: 8px; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-buscar:hover { background-color: var(--azul-cielo); }
+
+        .btn-enviar {
+            color: var(--blanco); font-weight: 600; font-size: 1rem; padding: 10px 20px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            white-space: nowrap; border-radius: 5px; border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-cielo)) border-box;
+        }
+        .btn-enviar:hover {
+            background: linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) padding-box,
+                        linear-gradient(135deg, var(--azul-oscuro), var(--azul-cielo)) border-box;
+            color: var(--blanco); text-decoration: none;
+        }
+
+        /* MENÚ propio (el botón ☰ solo aparece en pantallas pequeñas) */
+        .navbar-custom {
+            background-color: var(--azul-cielo); border-bottom: 4px solid;
+            border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1;
+            position: relative;
+        }
+        .navbar-custom .container {
+            display: flex; align-items: center; justify-content: center;
+            flex-wrap: wrap; min-height: 52px;
+        }
+        .navbar-toggler {
+            display: none; background: none; color: var(--blanco);
+            border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 5px;
+            padding: 6px 9px; cursor: pointer; font-size: 1.35rem; line-height: 1;
+        }
+        .navbar-nav { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
+        .navbar-custom .nav-link {
+            display: block; padding: 12px 0; color: var(--blanco) !important;
+            font-weight: 500; margin: 0 10px; text-decoration: none;
+        }
+        .navbar-custom .nav-link:hover, .navbar-custom .active {
+            color: var(--gris-oscuro) !important; border-bottom: 3px solid var(--blanco);
+        }
+        @media (min-width: 992px) {
+            .navbar-nav { flex-direction: row; justify-content: center; }
+        }
+        @media (max-width: 991px) {
+            .navbar-toggler { display: inline-flex; align-items: center; }
+            .navbar-collapse { display: none; width: 100%; }
+            .navbar-collapse.open { display: block; }
+            .navbar-custom .nav-link { border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+            .navbar-nav .nav-item:last-child .nav-link { border-bottom: none; }
+        }
+
+        /* TARJETAS BASE */
+        .card-articulo, .card-especial {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-articulo:hover, .card-especial:hover {
+            transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 68, 204, 0.25);
+        }
+        /* RECUADRO 16:9 COMPATIBLE CON NAVEGADORES ANTIGUOS (truco del
+           padding-bottom): la imagen SIEMPRE se adapta al recuadro y se
+           recorta por el centro, sin importar su tamaño real. */
+        .card-img-wrapper {
+            position: relative; width: 100%; height: 0; padding-bottom: 56.25%;
+            overflow: hidden;
+            border-bottom: 3px solid var(--azul-cielo); flex-shrink: 0;
+            background: linear-gradient(135deg, #eef4fb, #dce9f7);
+        }
+        .card-img-wrapper img {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; object-fit: cover;
+        }
+        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
+        .card-body p:last-child { margin-bottom: 0; }
+        .card-cat { color: var(--azul-fuerte); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .card-title { font-size: 1.2rem; font-weight: 600; margin: 10px 0; color: var(--gris-oscuro); line-height: 1.3; }
+        .card-title a { color: inherit; text-decoration: none; }
+        .card-title a:hover { color: var(--azul-cielo); }
+        .card-excerpt { font-size: 0.95rem; color: #555; flex-grow: 1; overflow: hidden; }
+        .card-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
+
+        /* CARRUSEL (EFECTO PEEK) — iconos de las flechas SVG inline */
+        .carousel-container { position: relative; padding: 0 40px; }
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 60px; height: 60px; background-color: var(--blanco); color: var(--azul-fuerte);
+            border: 3px solid var(--azul-fuerte); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+            padding: 0;
+        }
+        .carousel-btn svg.icon { width: 26px; height: 26px; }
+        .carousel-btn:hover {
+            background-color: var(--azul-fuerte); color: var(--blanco); transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-btn.prev { left: -10px; }
+        .carousel-btn.next { right: -10px; }
+        .horizontal-scroll-wrapper {
+            display: flex; overflow-x: auto; gap: 20px; padding: 10px 0 20px 0;
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+        }
+        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
+        .horizontal-scroll-wrapper { -ms-overflow-style: none; scrollbar-width: none; }
+        .carousel-item-card { flex: 0 0 88%; scroll-snap-align: center; min-height: 480px; }
+        @media (min-width: 768px) { .carousel-item-card { flex: 0 0 46%; } }
+
+        .section-title {
+            border-left: 5px solid var(--azul-fuerte); padding-left: 10px;
+            color: var(--azul-fuerte); font-weight: bold; margin-bottom: 20px;
+        }
+
+        /* EVENTOS Y PREMIOS */
+        .card-especial { height: 100%; }
+        .card-evento {
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--rojo-evento), #b71c1c) border-box;
+        }
+        .card-evento .card-img-wrapper { border-bottom-color: var(--rojo-evento); }
+        .card-evento .card-cat, .card-evento .card-title a:hover { color: var(--rojo-evento); }
+        .card-premio {
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--dorado-premio), #f57f17) border-box;
+        }
+        .card-premio .card-img-wrapper { border-bottom-color: var(--dorado-premio); }
+        .card-premio .card-cat, .card-premio .card-title a:hover { color: #f57f17; }
+
+        /* SIDEBAR — SIN sticky: el bloque PROYECTOS COLABORATIVOS
+           y todo el contenido de la columna derecha siempre se ve
+           completo, sin recortes, en cualquier navegador. */
+        .sidebar-wrapper { position: static; }
+
+        .boletin-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box;
+            color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
+        }
+        .boletin-card input {
+            border: 2px solid var(--azul-fuerte); border-radius: 5px; padding: 10px; width: 100%; margin-bottom: 10px;
+        }
+        .boletin-card button {
+            background-color: var(--gris-oscuro); color: var(--blanco);
+            border: 2px solid var(--azul-fuerte); padding: 10px; width: 100%; font-weight: bold; border-radius: 5px;
+        }
+
+        .indexadores-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
+        }
+        .indexadores-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
+        .indexadores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: center; justify-items: center; }
+        .indexadores-grid img { max-width: 100%; max-height: 60px; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s ease; }
+        .indexadores-grid img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        .about-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; padding: 25px 20px;
+        }
+        .about-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .about-card p { font-size: 0.9rem; color: #555; line-height: 1.6; text-align: justify; margin-bottom: 15px; }
+        .btn-leer-mas {
+            display: block; width: 100%; text-align: center; padding: 10px;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            color: var(--blanco); font-weight: 600; text-decoration: none; border-radius: 5px;
+        }
+
+        /* PROYECTOS COLABORATIVOS (sidebar) */
+        .proyectos-card .section-title { font-size: 1.35rem; margin-bottom: 5px; }
+        .proyectos-card h4 { color: var(--azul-fuerte); font-weight: 700; font-size: 1.1rem; text-align: center; margin: 14px 0 10px; }
+        .proyectos-card p { font-size: 0.88rem; margin-bottom: 12px; }
+        .proy-img {
+            border: 1px solid #d7e4f2; border-radius: 8px;
+            background: linear-gradient(135deg, #eef4fb, #dce9f7);
+            min-height: 64px; margin-bottom: 12px; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .proy-img img { max-width: 100%; height: auto; display: block; }
+        .proyectos-card hr { border-top: 1px solid #d7e4f2; opacity: 1; margin: 16px 0; }
+        .proyectos-card .btn-leer-mas:hover { opacity: 0.92; }
+
+        /* TARJETAS RELACIONADAS (páginas de artículo) */
+        .related-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; padding: 20px; margin-bottom: 20px;
+        }
+        .related-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .related-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; text-decoration: none; color: inherit; transition: transform 0.2s; }
+        .related-item:last-child { margin-bottom: 0; }
+        .related-item:hover { transform: translateX(5px); }
+        .related-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 6px; border: 2px solid var(--azul-cielo); flex-shrink: 0; background: #eef4fb; }
+        .related-info h5 { font-size: 0.9rem; font-weight: 600; line-height: 1.3; margin: 0 0 5px 0; color: var(--gris-oscuro); }
+        .related-item:hover .related-info h5 { color: var(--azul-fuerte); }
+        .related-info span { font-size: 0.75rem; color: #777; }
+
+        /* PÁGINAS INTERNAS: título, breadcrumb y tarjetas de contenido */
+        .breadcrumb-custom { background: transparent; padding: 0; margin-bottom: 20px; font-size: 0.9rem; }
+        .breadcrumb-custom a { color: var(--azul-fuerte); text-decoration: none; }
+        .breadcrumb-custom a:hover { text-decoration: underline; }
+        .breadcrumb-custom span { color: #777; margin: 0 5px; }
+        .page-title { font-size: 2.2rem; font-size: clamp(1.8rem, 6vw, 2.6rem); margin-bottom: 10px; }
+        .page-lead { font-size: 1.05rem; color: #555; max-width: 850px; }
+        .page-card {
+            background: var(--blanco); border-radius: 10px;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            padding: 25px; margin-bottom: 25px;
+        }
+        .page-card h2 { color: var(--azul-oscuro); margin-bottom: 12px; }
+
+        /* ARTÍCULOS */
+        .article-container {
+            background: var(--blanco); border-radius: 10px;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
+        }
+        /* Recuadro del artículo: 16:9 con padding-bottom (compatible con
+           Firefox antiguo; la imagen siempre llena y recortada al recuadro) */
+        .article-hero { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden; border-bottom: 3px solid var(--azul-cielo); background: linear-gradient(135deg, #eef4fb, #dce9f7); }
+        .article-hero img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+        .article-content { padding: 30px; }
+        .article-category { color: var(--azul-fuerte); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
+        .article-title { font-family: Georgia, serif; font-size: 2.3rem; font-weight: 700; color: var(--gris-oscuro); line-height: 1.2; margin-bottom: 15px; }
+        .article-meta { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9rem; color: #666; border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 25px; }
+        .article-meta strong { color: var(--azul-oscuro); }
+        .article-body { font-size: 1.1rem; line-height: 1.8; color: #333; }
+        .article-body p { margin-bottom: 1.5rem; }
+        .article-body h2, .article-body h3 { font-family: Georgia, serif; color: var(--azul-oscuro); margin-top: 2rem; margin-bottom: 1rem; font-weight: 700; }
+        .article-body img { max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #eee; margin: 20px 0; display: block; }
+        @media (min-width: 768px) {
+            .article-body img.float-right { float: right; max-width: 45%; margin: 0 0 20px 20px; }
+            .article-body img.float-left { float: left; max-width: 45%; margin: 0 20px 20px 0; }
+        }
+        .article-body blockquote { border-left: 5px solid var(--azul-fuerte); background: var(--gris-fondo); padding: 15px 20px; font-style: italic; color: #444; margin: 25px 0; border-radius: 0 8px 8px 0; }
+        .article-navigation { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background-color: var(--gris-fondo); border-top: 2px dashed #ccc; gap: 10px; flex-wrap: wrap; }
+        .article-navigation a { color: var(--azul-fuerte); font-weight: 600; font-size: 1rem; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
+        .article-navigation a:hover { color: var(--azul-cielo); }
+        .article-navigation .nav-prev:hover { transform: translateX(-5px); }
+        .article-navigation .nav-next:hover { transform: translateX(5px); }
+
+        /* CONTACTO: una sola tarjeta con envío directo por correo */
+        .contacto-card {
+            background: var(--blanco); border-radius: 10px;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            padding: 30px; max-width: 760px;
+        }
+        .contacto-card h2 { color: var(--azul-oscuro); }
+        .contacto-aviso {
+            background: #fff8e1; border: 1px solid #f2d795; border-radius: 8px;
+            padding: 12px 16px; font-size: 0.92rem; color: #7a5b00; margin-bottom: 20px;
+        }
+        .contacto-aviso .icon { color: #b8860b; }
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 10px 12px; border: 2px solid #cfe0f3; border-radius: 6px;
+            font-size: 0.95rem; font-family: inherit; background: #fbfdff;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none; border-color: var(--azul-cielo);
+        }
+        .form-group textarea { min-height: 130px; resize: vertical; }
+        .form-group small { color: #777; }
+        .btn-primario {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            color: var(--blanco); font-weight: 600; font-size: 1rem;
+            border: none; border-radius: 6px; padding: 12px 26px; cursor: pointer;
+        }
+        .btn-primario:hover { opacity: 0.93; }
+        .nota-envio {
+            display: none; background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px;
+            padding: 12px 16px; font-size: 0.92rem; color: #1b5e20; margin-top: 16px;
+        }
+        .contacto-datos {
+            border-top: 1px solid #e3edf8; margin-top: 22px; padding-top: 16px;
+            font-size: 0.9rem; color: #555;
+        }
+        .contacto-datos .icon { color: var(--azul-fuerte); margin-right: 6px; }
+        .contacto-datos p { margin-bottom: 6px; }
+
+        /* ARTÍCULOS PUBLICADOS: tarjeta alargada de resultado */
+        .resultado-card {
+            display: flex; gap: 18px; align-items: stretch;
+            background: var(--blanco); border-radius: 10px;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            padding: 18px; margin-bottom: 22px; flex-wrap: wrap;
+        }
+        .resultado-img {
+            flex: 0 0 210px; height: 150px; border-radius: 8px; overflow: hidden;
+            position: relative;
+            background: linear-gradient(135deg, #eef4fb, #dce9f7); text-decoration: none;
+        }
+        .resultado-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+        .resultado-body { flex: 1 1 280px; min-width: 0; }
+        .resultado-cat { color: var(--azul-fuerte); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .resultado-body h3 { font-size: 1.25rem; margin: 6px 0; }
+        .resultado-body h3 a { color: var(--gris-oscuro); text-decoration: none; }
+        .resultado-body h3 a:hover { color: var(--azul-cielo); }
+        .resultado-body p { font-size: 0.95rem; color: #555; margin-bottom: 8px; }
+        .resultado-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #e6eef7; padding-top: 8px; }
+        .resultado-acciones {
+            flex: 0 0 170px; display: flex; flex-direction: column;
+            justify-content: center; gap: 10px;
+        }
+        .btn-pdf {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 4px; padding: 14px 10px; border-radius: 8px; text-decoration: none;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            color: var(--blanco); font-weight: 600; font-size: 0.95rem; text-align: center;
+        }
+        .btn-pdf svg.icon { width: 34px; height: 34px; }
+        .btn-pdf small { font-weight: 500; opacity: 0.9; letter-spacing: 1px; }
+        .btn-pdf:hover { opacity: 0.93; color: var(--blanco); }
+        .btn-leer-mini {
+            display: block; text-align: center; padding: 9px 10px; border-radius: 8px;
+            border: 2px solid var(--azul-fuerte); color: var(--azul-fuerte);
+            font-weight: 600; font-size: 0.9rem; text-decoration: none;
+        }
+        .btn-leer-mini:hover { background: var(--azul-fuerte); color: var(--blanco); }
+        .sin-resultados {
+            background: #fff8e1; border: 1px solid #f2d795; border-radius: 10px;
+            padding: 20px; font-size: 1rem; color: #7a5b00;
+        }
+        .buscando-info { font-size: 0.95rem; color: #555; margin-bottom: 18px; }
+
+        /* ACERCA DE */
+        .lista-secciones { list-style: none; padding-left: 0; }
+        .lista-secciones li { padding-left: 0; margin-bottom: 10px; font-size: 0.95rem; color: #444; }
+        .lista-secciones .icon { color: var(--azul-fuerte); margin-right: 8px; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
+        .team-member { text-align: center; }
+        .team-member img { width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 3px solid var(--azul-cielo); margin-bottom: 10px; background: #eef4fb; }
+        .team-member h4 { font-size: 0.95rem; margin-bottom: 4px; }
+        .team-member .role { font-size: 0.8rem; color: #777; }
+        .ficha-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; padding: 20px; margin-bottom: 20px;
+        }
+        .ficha-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .ficha-card ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        .ficha-card li { font-size: 0.9rem; color: #555; margin-bottom: 10px; }
+        .ficha-card .icon { color: var(--azul-fuerte); margin-right: 6px; }
+        .publica-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box;
+            color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center;
+        }
+        .publica-card h4 { font-weight: 700; margin-bottom: 10px; }
+        .publica-card p { font-size: 0.9rem; opacity: 0.95; }
+        .publica-card .btn-leer-mas { background: linear-gradient(135deg, var(--gris-oscuro), #31404d); }
+
+        /* FOOTER */
+        .footer {
+            background-color: var(--gris-oscuro); color: var(--blanco); border-top: 4px solid;
+            border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1;
+            padding: 40px 0 20px; margin-top: 40px;
+        }
+        .footer a { color: var(--azul-cielo); text-decoration: none; }
+        .footer .icon { color: var(--azul-cielo); }
+        .footer-bottom { border-top: 1px solid #444; padding-top: 20px; margin-top: 20px; font-size: 0.8rem; text-align: center; }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .carousel-btn { width: 45px; height: 45px; }
+            .carousel-btn svg.icon { width: 20px; height: 20px; }
+            .carousel-container { padding: 0 20px; }
+            .carousel-btn.prev { left: -15px; }
+            .carousel-btn.next { right: -15px; }
+            .article-title { font-size: 1.9rem; }
+        }
+        @media (max-width: 768px) {
+            .logo-banner {
+                height: 210px;                  /* respaldo para Firefox antiguo */
+                height: clamp(180px, 48vw, 230px);
+                width: 100%;
+                max-height: none;
+                object-fit: cover;
+                object-position: 50% 50%;
+            }
+            .search-container, .header-actions .btn-enviar { width: 100%; }
+            .header-actions { flex-direction: column; gap: 10px; }
+            .carousel-btn { top: auto; bottom: -20px; }
+            .carousel-btn.prev { left: 30%; }
+            .carousel-btn.next { right: 30%; }
+            .article-content { padding: 20px; }
+            .article-navigation { flex-direction: column; align-items: stretch; text-align: center; padding: 15px 20px; }
+            .article-navigation a { justify-content: center; }
+            .resultado-card { flex-direction: column; }
+            .resultado-img { flex: 1 1 auto; width: 100%; height: 160px; }
+            .resultado-acciones { flex: 1 1 auto; flex-direction: row; }
+            .resultado-acciones .btn-pdf, .resultado-acciones .btn-leer-mini { flex: 1; }
+        }
+        @media (max-width: 480px) {
+            .header-box { padding: 16px 12px; }
+            .header-title span { padding: 8px 16px; }
+            .header-title { font-size: 2.4rem; font-size: clamp(2.1rem, 11vw, 2.9rem); letter-spacing: 2px; }
+            .footer { margin-top: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <!-- FECHA: la pide a servidores de hora sincronizados (zona Caracas).
+                 Si no hay conexión muestra "Sin acceso al servidor de horario";
+                 NUNCA usa el reloj local del PC. -->
+            <div><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span id="fecha-actual">Consultando el servidor de horario…</span></div>
+            <div class="mt-2 mt-sm-0">
+                <a href="contacto.html">Suscríbete</a>
+                <a href="acerca-de.html">Acerca de</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </div>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-box">
+                <a href="index.html" class="header-brand">
+                    <!-- Banner con "Macarenco" superpuesto (sin reflejo) -->
+                    <div class="banner-wrapper">
+                        <img src="imagen/banner-header.png" alt="Asociación de Pedagogos de Cuba" class="logo-banner">
+                        <h1 class="header-title"><span>Macarenco</span></h1>
+                    </div>
+                    <span class="header-subtitle">Revista informativa de la Asociación de Pedagogos de Cuba<br>Filial Santiago de Cuba</span>
+                </a>
+                <div class="header-actions">
+                    <form class="search-container" action="articulos_publicados.html" method="get" role="search">
+                        <img src="imagen/lupa.png" alt="" class="search-icon" onerror="this.style.display='none'">
+                        <input type="text" name="q" placeholder="Buscar artículos..." aria-label="Buscar">
+                        <button type="submit" class="btn-buscar">Buscar</button>
+                    </form>
+                    <a href="contacto.html" class="btn-enviar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar Artículo</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Menú -->
+    <nav class="navbar navbar-custom" aria-label="Navegación principal">
+        <div class="container">
+            <button class="navbar-toggler" type="button" id="nav-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <div class="navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="acerca-de.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" href="articulos_publicados.html">Artículos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav class="breadcrumb-custom"><a href="index.html"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Inicio</a><span>/</span><span>Contacto</span></nav>
+        <h1 class="page-title">Contacto</h1>
+        <p class="page-lead">¿Tienes una propuesta, una colaboración o una sugerencia? Envíala a la redacción de Macarenco desde esta tarjeta.</p>
+
+        <div class="row">
+            <div class="col-lg-8 mb-5 mb-lg-0">
+
+                <!-- ÚNICA TARJETA DE CONTACTO: el envío va directo a
+                     sosasoftcuba@gmail.com a través del programa de correo
+                     del visitante (funciona sin servidor de mensajes). -->
+                <div class="contacto-card">
+                    <h2>Enviar mensaje o artículo</h2>
+                    <div class="contacto-aviso">
+                        <p style="margin-bottom:6px"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> <strong>El servidor de envío de mensajes de la web no está disponible en estos momentos.</strong> Por eso, al pulsar el botón se abrirá tu programa de correo (Thunderbird, Outlook, Gmail de escritorio…) con el mensaje ya preparado y dirigido a la redacción.</p>
+                        <p class="mb-0"><strong>Para mandar un artículo:</strong> completa los datos, pulsa el botón y <strong>adjunta el archivo (Word o PDF)</strong> en el correo que se abrirá antes de enviarlo.</p>
+                    </div>
+
+                    <form id="contact-form" onsubmit="return enviarCorreo(this)">
+                        <div class="form-group">
+                            <label for="c-nombre">Nombre completo *</label>
+                            <input type="text" id="c-nombre" name="nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-correo">Correo electrónico *</label>
+                            <input type="email" id="c-correo" name="correo" required>
+                            <small>No lo compartiremos con terceros.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-asunto">Asunto *</label>
+                            <select id="c-asunto" name="asunto" required>
+                                <option value="">Selecciona…</option>
+                                <option>Proponer un artículo</option>
+                                <option>Colaboración institucional</option>
+                                <option>Suscripción al boletín</option>
+                                <option>Sugerencia o comentario</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="c-mensaje">Mensaje *</label>
+                            <textarea id="c-mensaje" name="mensaje" required placeholder="Si envías un artículo, incluye aquí un breve resumen. El archivo Word o PDF se adjunta en el correo que se abrirá."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primario"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar mensaje al correo</button>
+
+                        <div class="nota-envio" id="nota-envio">
+                            Se abrió tu programa de correo con el mensaje listo para <strong>sosasoftcuba@gmail.com</strong>. Recuerda adjuntar el archivo de tu artículo si corresponde. Si no se abrió, escribe directamente a <a href="mailto:sosasoftcuba@gmail.com">sosasoftcuba@gmail.com</a>.
+                        </div>
+                    </form>
+
+                    <div class="contacto-datos">
+                        <p><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Redacción: <a href="mailto:sosasoftcuba@gmail.com">sosasoftcuba@gmail.com</a></p>
+                        <p><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> Teléfono: +53 XX XX XX</p>
+                        <p><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> Calle Aguilera #157, entre San Félix y Heredia, Santiago de Cuba, Cuba</p>
+                        <p><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Horario: lunes a viernes, 8:30 – 16:30</p>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Columna Derecha (Sidebar, sin sticky: siempre visible) -->
+            <div class="col-lg-4">
+                <div class="sidebar-wrapper">
+                    <div class="boletin-card">
+                        <h4>Boletín Semanal</h4>
+                        <p class="small">Recibe lo más relevante de la pedagogía cubana cada lunes.</p>
+                        <form action="contacto.html">
+                            <input type="email" placeholder="Tu correo electrónico" required>
+                            <button type="submit">Suscribirme</button>
+                        </form>
+                    </div>
+
+                    <div class="indexadores-card">
+                        <h4>Indexada en:</h4>
+                        <div class="indexadores-grid">
+                            <img src="imagen/placeholder.svg" alt="Scopus" title="Scopus">
+                            <img src="imagen/placeholder.svg" alt="Google Académico" title="Google Académico">
+                            <img src="imagen/placeholder.svg" alt="Redalyc" title="Redalyc">
+                            <img src="imagen/placeholder.svg" alt="SciELO" title="SciELO">
+                            <img src="imagen/placeholder.svg" alt="DOAJ" title="DOAJ">
+                            <img src="imagen/placeholder.svg" alt="Latindex" title="Latindex">
+                        </div>
+                    </div>
+
+                    <!-- PROYECTOS COLABORATIVOS (restaurado de la versión original) --><!--
+                         IMPORTANTE: copia estas 4 imágenes desde la carpeta
+                         "Macarenco · ... _files" de tu página guardada a la
+                         carpeta imagen/ del sitio:
+                         consultor.png · Educamos-contigo.png · youtube.png · banner-macarencos.png
+                         (si falta alguna, la tarjeta muestra un recuadro suave en su lugar)-->
+                    <div class="about-card proyectos-card">
+                        <h3 class="section-title">PROYECTOS COLABORATIVOS</h3>
+
+                        <div class="proy-item">
+                            <h4>Consultor de Tesis UO</h4>
+                            <div class="proy-img"><img src="imagen/consultor.png" alt="Consultor de Tesis de la Universidad de Oriente" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Proyecto en colaboración con la Universidad de Oriente para elevar la calidad educativa, fomentar la investigación pedagógica y la formación permanente de los docentes.</p>
+                            <a href="https://sosasoftcuba.github.io/base_consultora_UO/" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                        <hr>
+
+                        <div class="proy-item">
+                            <h4>Proyecto Educamos Contigo</h4>
+                            <div class="proy-img"><img src="imagen/Educamos-contigo.png" alt="Proyecto Educamos Contigo" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Enseñando Ud. ... Aprendemos Nosotros: proyecto educativo de la filial que acompaña a docentes y familias.</p>
+                            <a href="https://www.facebook.com/sosasoftcuba.cu" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                        <hr>
+
+                        <div class="proy-item">
+                            <h4>Nuestro Canal en Youtube:</h4>
+                            <div class="proy-img"><img src="imagen/youtube.png" alt="Canal de YouTube de la revista" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Canal oficial de la revista y la filial en YouTube.</p>
+                            <a href="https://www.youtube.com/@sosasoftcuba" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                        <hr>
+
+                        <div class="proy-item">
+                            <h4>Asociación APC Santiago:</h4>
+                            <div class="proy-img"><img src="imagen/banner-macarencos.png" alt="Asociación APC Santiago" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Enlace a los recursos y colaboradores de la Asociación de Pedagogos de Cuba.</p>
+                            <a href="https://cubaplaza.net/" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <h4>¿Quiénes Somos?</h4>
+                        <p>La Asociación de Pedagogos de Cuba (APC) es una organización científica y social que agrupa a los profesionales de la educación en el país.</p>
+                        <p>Fundada con el objetivo de elevar la calidad educativa, fomentar la investigación pedagógica y promover la formación permanente de los docentes.</p>
+                        <a href="acerca-de.html" class="btn-leer-mas">Leer más sobre la APC</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Macarenco</h5>
+                    <p class="small">Revista informativa de la Asociación de Pedagogos de Cuba, Filial Santiago de Cuba.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="articulos_publicados.html">Artículos publicados</a></li>
+                        <li><a href="acerca-de.html">Acerca de</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Contacto</h5>
+                    <p class="small mb-1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> redaccion@apc-santiago.cu</p>
+                    <p class="small mb-1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> sosasoftcuba@gmail.com</p>
+                    <p class="small"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg> +53 XX XX XX</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 Macarenco · Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- FECHA Y HORA REAL: zona horaria America/Caracas (Venezuela).
+         La pide a servidores de hora sincronizados por NTP (se consulta su
+         hora por HTTPS). time.windows.com es un servidor NTP "puro" y los
+         navegadores no pueden leerlo directamente, así que se usan dos
+         servidores equivalentes con hora certificada. Si no hay conexión,
+         muestra "Sin acceso al servidor de horario" (no usa el reloj del PC). -->
+    <script>
+    (function () {
+        var el = document.getElementById('fecha-actual');
+        if (!el) return;
+        var DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+        var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
+                     'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+
+        function capitalizar(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+
+        /* Convierte un instante (Date) a texto en hora de Caracas */
+        function formatear(d) {
+            try {
+                if (window.Intl && Intl.DateTimeFormat) {
+                    var f = new Intl.DateTimeFormat('es', {
+                        timeZone: 'America/Caracas',
+                        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+                        hour: 'numeric', minute: '2-digit', hour12: true
+                    });
+                    return capitalizar(f.format(d));
+                }
+            } catch (e) { /* sin Intl: formato manual */ }
+            /* Respaldo manual: Caracas = UTC-4 */
+            var u = new Date(d.getTime() - 4 * 3600000);
+            var h = u.getUTCHours(), m = u.getUTCMinutes();
+            var h12 = ((h + 11) % 12) + 1;
+            var suf = h < 12 ? 'a. m.' : 'p. m.';
+            return capitalizar(DIAS[u.getUTCDay()] + ', ' + u.getUTCDate() + ' de ' +
+                MESES[u.getUTCMonth()] + ' de ' + u.getUTCFullYear() + ', ' +
+                h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + suf);
+        }
+
+        function pedir(url, alRecibir, alFallar) {
+            if (typeof fetch !== 'function') { alFallar(); return; }
+            var ctrl = null, timer = null;
+            try {
+                if (window.AbortController) { ctrl = new AbortController(); timer = setTimeout(function () { ctrl.abort(); }, 6000); }
+            } catch (e) { ctrl = null; }
+            var opciones = { cache: 'no-store' };
+            if (ctrl) opciones.signal = ctrl.signal;
+            fetch(url, opciones).then(function (r) {
+                if (timer) clearTimeout(timer);
+                if (!r.ok) throw new Error('HTTP ' + r.status);
+                return r.json();
+            }).then(function (datos) {
+                if (timer) clearTimeout(timer);
+                alRecibir(datos);
+            }).catch(function () {
+                if (timer) clearTimeout(timer);
+                alFallar();
+            });
+        }
+
+        function consultar() {
+            /* 1er servidor de hora (NTP sincronizado) */
+            pedir('https://worldtimeapi.org/api/timezone/America/Caracas',
+                function (datos) {
+                    var d = new Date(datos.datetime);          /* ISO con desplazamiento -04:00 */
+                    if (isNaN(d.getTime())) throw new Error('fecha inválida');
+                    el.textContent = formatear(d) + ' · hora de Caracas';
+                },
+                function () {
+                    /* 2do servidor de hora (NTP sincronizado) */
+                    pedir('https://timeapi.io/api/Time/current/zone?timeZone=America/Caracas',
+                        function (datos) {
+                            /* dateTime viene en hora local de Caracas, sin zona:
+                               se interpreta como UTC y se le suman las 4 horas
+                               que separan a Caracas (UTC-4) del UTC. */
+                            var d = new Date(datos.dateTime + 'Z');
+                            if (isNaN(d.getTime())) throw new Error('fecha inválida');
+                            d = new Date(d.getTime() + 4 * 3600000);
+                            el.textContent = formatear(d) + ' · hora de Caracas';
+                        },
+                        function () {
+                            el.textContent = 'Sin acceso al servidor de horario';
+                        });
+                });
+        }
+
+        consultar();
+        setInterval(consultar, 60000); /* reintenta cada minuto: si vuelve la conexión, se actualiza */
+    })();
+    </script>
+    <!-- MENÚ MÓVIL (JS propio, sin jQuery) -->
+    <script>
+        (function () {
+            var btn = document.getElementById('nav-toggler');
+            var menu = document.getElementById('navbarNav');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', function () {
+                var abierto = menu.classList.toggle('open');
+                btn.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+            });
+        })();
+    </script>
+    <!-- ENVÍO DIRECTO: prepara el mensaje y lo entrega al programa de correo -->
+    <script>
+    function enviarCorreo(f) {
+        var nombre = f.nombre.value.trim();
+        var correo = f.correo.value.trim();
+        var asunto = f.asunto.value;
+        var mensaje = f.mensaje.value.trim();
+        if (!nombre) { alert('Escribe tu nombre.'); f.nombre.focus(); return false; }
+        var re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+        if (!re.test(correo)) { alert('Correo no válido.'); f.correo.focus(); return false; }
+        if (!asunto) { alert('Selecciona un asunto.'); f.asunto.focus(); return false; }
+        if (mensaje.length < 10) { alert('Escribe un mensaje más amplio.'); f.mensaje.focus(); return false; }
+        var cuerpo = 'Nombre: ' + nombre + '\nCorreo: ' + correo + '\n\n' + mensaje + '\n\n— Enviado desde el formulario de contacto de Macarenco';
+        var url = 'mailto:sosasoftcuba@gmail.com'
+                + '?subject=' + encodeURIComponent('Macarenco: ' + asunto)
+                + '&body=' + encodeURIComponent(cuerpo);
+        window.location.href = url;
+        document.getElementById('nota-envio').style.display = 'block';
+        return false;
+    }
+    </script>
+
+</body>
+</html>

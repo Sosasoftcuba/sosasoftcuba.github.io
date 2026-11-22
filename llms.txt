@@ -1,0 +1,28 @@
+# Grupo Sosa·Soft·Cuba — Portal Digital
+
+> Vitrina digital abierta, profesional y sin fines de lucro, al servicio del conocimiento. Creamos herramientas digitales y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.
+
+El Grupo Sosa·Soft·Cuba es un colectivo cubano sin fines de lucro que desarrolla y publica plataformas educativas, académicas y culturales. Este portal (https://sosasoftcuba.github.io/) es su punto de encuentro central y galería de proyectos. Todo el contenido y las herramientas son gratuitos para docentes, estudiantes e instituciones.
+
+## Proyectos
+
+- [Revista Macarenco](https://sosasoftcuba.github.io/revista_macarencos/): revista digital informativa de la Asociación de Pedagogos de Cuba (Filial Santiago de Cuba); espacio para el pensamiento pedagógico y las actividades de la Asociación en la provincia y el resto del país.
+- [Juegos Didácticos](https://sosasoftcuba.github.io/juegos_didacticos/): plataforma interactiva con recursos lúdicos y juegos diseñados para apoyar el proceso de enseñanza-aprendizaje en las aulas («Jugar y Aprender»).
+- [Base Consultora de Tesis UO](https://sosasoftcuba.github.io/base_consultora_uo/): plataforma de la Universidad de Oriente que facilita el acceso al conocimiento científico y académico; tesis de Maestría y Doctorado y materiales docentes, bajo una filosofía de no comercialidad.
+- [SosaSoftCuba · Portal](https://sosasoftcuba.github.io/): sitio web oficial y punto de encuentro central del proyecto; galería de todas las iniciativas.
+- [Cuba Plaza](http://www.cubaplaza.net): portal digital de servicios y punto de encuentro para la comunidad; conecta usuarios y promueve el desarrollo local.
+- [Coffee Rock](http://www.coffeerockd.net): espacio digital que fusiona cultura, música y buen café; promueve la creación local y el encuentro social.
+
+## Colaboración
+
+El portal invita a instituciones, universidades y empresas alineadas con la educación y la cultura digital a colaborar («Impulsa el conocimiento libre») para llevar más herramientas gratuitas a más personas.
+
+## Contacto
+
+- Correo electrónico: sosasoftcuba@gmail.com
+
+## Notas
+
+- Idioma del sitio: español.
+- Proyecto sin fines de lucro con sede en GitHub Pages (organización SosaSoftCuba).
+- Para la vista previa social existe una imagen oficial en https://sosasoftcuba.github.io/imagen/previa-sosasoftcuba-portal.png
